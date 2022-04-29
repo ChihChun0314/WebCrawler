@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "登入";
+}
+
+<body>
+    <div>
+        <form asp-action="Login_Check">
+            帳號:<input type="text" name="Account"  /><br />
+            密碼:<input type="text" name="Password"  /><br />
+            <input type="submit" value="登入" />
+        </form>
+        <form asp-action="Register">
+            <input type="submit" value="註冊" />
+        </form>
+    </div>
+    
+</body>
