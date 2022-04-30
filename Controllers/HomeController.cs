@@ -18,18 +18,18 @@ namespace WebCrawler.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login_Check([Bind("Account,Password")]User user)
+        public IActionResult Login_Check(string Email,string Password)
         {
-            if (user == null)
+            if (Email == null || Password == null)
             {
                 return View("Login");
             }
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
-                var Check = DB.Users.Where(x => x.Account == user.Account && x.Password == user.Password).FirstOrDefault();
+                var Check = DB.Users.Where(x => x.UEmail == Email && x.UPassword == Password).FirstOrDefault();
                 if(Check != null)
                 {
-                    HttpContext.Session.SetInt32("UserId", Check.UserId);
+                    HttpContext.Session.SetInt32("UserId", Check.UId);
                     return RedirectToAction("Index");
                 }
             }
@@ -47,7 +47,7 @@ namespace WebCrawler.Controllers
         [HttpPost]
         public async Task<IActionResult> Register_Join([Bind("Name,Account,Password,Tel")]User user)
         {
-            if(user.Account != null && user.Name != null && user.Password != null)
+            if(user.UEmail != null && user.Name != null && user.UPassword != null)
             {
                 DB.Add(user);
                 await DB.SaveChangesAsync();

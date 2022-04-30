@@ -5,11 +5,9 @@ namespace WebCrawler.Models
 {
     public partial class Analysis
     {
-        public int AnalysisId { get; set; }
-        public int? CrawlerId { get; set; }
-        public DateTime? Time { get; set; }
-        public string? State { get; set; }
-        public string? Comtent { get; set; }
-        public int? TypeId { get; set; }
+        public int AId { get; set; }
+        public int? CId { get; set; }
+        public int? TId { get; set; }
+        public string? Content { get; set; }
     }
 }

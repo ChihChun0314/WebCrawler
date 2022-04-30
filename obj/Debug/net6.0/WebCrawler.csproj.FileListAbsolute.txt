@@ -121,3 +121,4 @@ D:\Core\C#\WebCrawler\obj\Debug\net6.0\refint\WebCrawler.dll
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.pdb
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.genruntimeconfig.cache
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\ref\WebCrawler.dll
+D:\Core\C#\WebCrawler\obj\Debug\net6.0\scopedcss\Views\Home\Login.cshtml.rz.scp.css

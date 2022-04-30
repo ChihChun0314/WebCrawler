@@ -17,7 +17,11 @@ namespace WebCrawler.Models
         }
 
         public virtual DbSet<Analysis> Analyses { get; set; } = null!;
+        public virtual DbSet<Announment> Announments { get; set; } = null!;
         public virtual DbSet<Crawler> Crawlers { get; set; } = null!;
+        public virtual DbSet<Interval> Intervals { get; set; } = null!;
+        public virtual DbSet<Manager> Managers { get; set; } = null!;
+        public virtual DbSet<Message> Messages { get; set; } = null!;
         public virtual DbSet<Type> Types { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -33,71 +37,161 @@ namespace WebCrawler.Models
         {
             modelBuilder.Entity<Analysis>(entity =>
             {
+                entity.HasKey(e => e.AId);
+
                 entity.ToTable("Analysis");
 
-                entity.Property(e => e.AnalysisId)
+                entity.Property(e => e.AId)
                     .ValueGeneratedNever()
-                    .HasColumnName("AnalysisID");
+                    .HasColumnName("A_ID");
 
-                entity.Property(e => e.Comtent)
-                    .HasColumnType("text")
-                    .HasColumnName("comtent");
+                entity.Property(e => e.CId).HasColumnName("C_ID");
 
-                entity.Property(e => e.CrawlerId).HasColumnName("CrawlerID");
+                entity.Property(e => e.Content).HasColumnType("text");
 
-                entity.Property(e => e.State)
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+                entity.Property(e => e.TId).HasColumnName("T_ID");
+            });
 
-                entity.Property(e => e.Time).HasColumnType("datetime");
+            modelBuilder.Entity<Announment>(entity =>
+            {
+                entity.HasNoKey();
 
-                entity.Property(e => e.TypeId).HasColumnName("TypeID");
+                entity.ToTable("Announment");
+
+                entity.Property(e => e.AnnoId).HasColumnName("Anno_ID");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Crawler>(entity =>
             {
+                entity.HasKey(e => e.CId);
+
                 entity.ToTable("Crawler");
 
+                entity.Property(e => e.CId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("C_ID");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
                 entity.Property(e => e.Time).HasColumnType("datetime");
+
+                entity.Property(e => e.UId).HasColumnName("U_ID");
 
                 entity.Property(e => e.Url)
                     .HasColumnType("text")
                     .HasColumnName("URL");
 
-                entity.Property(e => e.WebCrawler)
+                entity.Property(e => e.WebName)
+                    .HasMaxLength(50)
+                    .HasColumnName("Web_name");
+            });
+
+            modelBuilder.Entity<Interval>(entity =>
+            {
+                entity.HasKey(e => e.IId);
+
+                entity.ToTable("Interval");
+
+                entity.Property(e => e.IId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("I_ID");
+
+                entity.Property(e => e.UId).HasColumnName("U_ID");
+
+                entity.Property(e => e.Url)
                     .HasColumnType("text")
-                    .HasColumnName("Web_Crawler");
+                    .HasColumnName("URL");
+
+                entity.Property(e => e.WebName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Manager>(entity =>
+            {
+                entity.HasKey(e => e.MId);
+
+                entity.ToTable("Manager");
+
+                entity.Property(e => e.MId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("M_ID");
+
+                entity.Property(e => e.Account).HasMaxLength(50);
+
+                entity.Property(e => e.MName)
+                    .HasMaxLength(50)
+                    .HasColumnName("M_Name");
+
+                entity.Property(e => e.MPassword)
+                    .HasColumnType("text")
+                    .HasColumnName("M_Password");
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.HasKey(e => e.MesId);
+
+                entity.ToTable("Message");
+
+                entity.Property(e => e.MesId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("Mes_ID");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.UId).HasColumnName("U_ID");
             });
 
             modelBuilder.Entity<Type>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.TId);
 
                 entity.ToTable("Type");
 
-                entity.Property(e => e.TypeId).HasColumnName("TypeID");
+                entity.Property(e => e.TId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("T_ID");
 
-                entity.Property(e => e.TypeName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Datatype).HasMaxLength(50);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasKey(e => e.UId);
+
                 entity.ToTable("User");
 
-                entity.Property(e => e.Account)
-                    .HasMaxLength(50)
+                entity.Property(e => e.UId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("U_ID");
+
+                entity.Property(e => e.Permission)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Phone_Number");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.UEmail)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasColumnName("U_Email");
+
+                entity.Property(e => e.UName)
+                    .HasMaxLength(50)
+                    .HasColumnName("U_Name");
+
+                entity.Property(e => e.UPassword)
+                    .HasMaxLength(50)
+                    .HasColumnName("U_Password");
             });
 
             OnModelCreatingPartial(modelBuilder);

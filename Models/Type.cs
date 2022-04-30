@@ -5,7 +5,7 @@ namespace WebCrawler.Models
 {
     public partial class Type
     {
-        public int? TypeId { get; set; }
-        public string? TypeName { get; set; }
+        public int TId { get; set; }
+        public string? Datatype { get; set; }
     }
 }
