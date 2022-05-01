@@ -23,7 +23,8 @@ a.navbar-brand[b-laa3aud7vk] {
 }
 
 a[b-laa3aud7vk] {
-  color: #0077cc;
+    /*color: #0077cc;*/
+    color: #fff;
 }
 
 .btn-primary[b-laa3aud7vk] {

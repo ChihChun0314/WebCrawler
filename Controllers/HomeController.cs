@@ -47,7 +47,7 @@ namespace WebCrawler.Controllers
         [HttpPost]
         public async Task<IActionResult> Register_Join([Bind("Name,Account,Password,Tel")]User user)
         {
-            if(user.UEmail != null && user.Name != null && user.UPassword != null)
+            if(user.UEmail != null && user.UName != null && user.UPassword != null)
             {
                 DB.Add(user);
                 await DB.SaveChangesAsync();
