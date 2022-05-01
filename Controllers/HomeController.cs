@@ -30,9 +30,11 @@ namespace WebCrawler.Controllers
                 if(Check != null)
                 {
                     HttpContext.Session.SetInt32("UserId", Check.UId);
+                    @ViewBag.complete = "登入成功";
                     return RedirectToAction("Index");
                 }
             }
+            @ViewBag.complete = "登入失敗";
             return View("Login");
         }
 
@@ -45,15 +47,17 @@ namespace WebCrawler.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register_Join([Bind("Name,Account,Password,Tel")]User user)
+        public async Task<IActionResult> Register_Join([Bind("UName,UEmail,UPassword,PhoneNumber")]User user)
         {
             if(user.UEmail != null && user.UName != null && user.UPassword != null)
             {
+                user.Permission = "user";
                 DB.Add(user);
                 await DB.SaveChangesAsync();
+                @ViewBag.complete = "註冊成功";
                 return View("Login");
             }            
-            @ViewBag.complete = "資料填寫不完全";
+            @ViewBag.complete = "註冊失敗";
             return View("Register");
         }
 

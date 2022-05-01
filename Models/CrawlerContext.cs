@@ -168,9 +168,7 @@ namespace WebCrawler.Models
 
                 entity.ToTable("User");
 
-                entity.Property(e => e.UId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("U_ID");
+                entity.Property(e => e.UId).HasColumnName("U_ID");
 
                 entity.Property(e => e.Permission)
                     .HasMaxLength(10)

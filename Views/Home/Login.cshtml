@@ -11,6 +11,7 @@
             <div class="col-4"></div>
             <div class="col-12" id="a">
                 <div id="accordion">
+                    @ViewBag.complete
                     <div class="card">
                         <div class="card-header">
                             <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
@@ -19,9 +20,9 @@
                         </div>
                         <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
                             <div class="card-body">
-                                <form>
-                                    <input type="text" style="margin-top: 10px;" placeholder="Account" class="form-control">
-                                    <input type="text" style="margin-top: 10px;" placeholder="Password" class="form-control">
+                                <form asp-action="Login_Check">
+                                    <input type="text" style="margin-top: 10px;" placeholder="Email" class="form-control" name="Email">
+                                    <input type="password" style="margin-top: 10px;" placeholder="Password" class="form-control"name="Password">
                                     <input type="submit" style="margin-top: 10px;" value="登入"
                                         class="btn btn-secondary barbtn">
                                 </form>
@@ -36,15 +37,18 @@
                         </div>
                         <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">
-                                <form>                                  
+                                <form asp-action="Register_Join">
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="UName"
+                                        placeholder="Name" required="">
+                                    <input class="form-control" style="margin-top: 10px;" type="tel" name="PhoneNumber"
+                                        placeholder="Phone_number" required="">
                                     <input class="form-control" style="margin-top: 10px;" type="email" name="UEmail"
                                         placeholder="Email" required="">
                                     <input class="form-control" style="margin-top: 10px;" type="password"
-                                        name="UPassword" placeholder="Password" required="">
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Name"
-                                        placeholder="Name" required="">
-                                    <input class="form-control" style="margin-top: 10px;" type="tel" name="Phone_number"
-                                        placeholder="Phone_number" required="">                                  
+                                        name="UPassword" placeholder="Password" required="" id="UPassword">
+                                    <input class="form-control" style="margin-top: 10px;" type="password"
+                                        name="rePassword" placeholder="Password" required="" id="rePassword" onblur="ck()">
+                                    <a class="tip">密碼不一致</a><br/>
                                     <input type="submit" style="margin-top: 10px;" value="送出審核"
                                         class="btn btn-secondary barbtn">
                                 </form>
@@ -56,5 +60,16 @@
             <div class="col-4"></div>
         </div>
     </div>
-    
+    <script>
+        $(".tip").hide();
+        function ck(){
+            var pwd1 = document.getElementById(UPassword).value;
+            var pwd2 = document.getElementById(rePassword).value;
+            if(pwd1 != pwd2){
+                $(".tip").show();
+            }else{
+                $(".tip").hide();
+            }
+        }
+    </script>
 </body>
