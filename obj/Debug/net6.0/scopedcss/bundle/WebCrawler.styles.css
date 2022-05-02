@@ -12,6 +12,20 @@ a[b-9zmjspnc2a] {
         background-color: #00741b;
         color: #ffffff;
     }
+/* _content/WebCrawler/Views/Home/ScanRecords.cshtml.rz.scp.css */
+a[b-zhlbsleydo] {
+    text-decoration: none;
+}
+
+.barbtn[b-zhlbsleydo] {
+    background-color: #5f5f5f;
+    color: #ffffff;
+}
+
+    .barbtn:hover[b-zhlbsleydo] {
+        background-color: #00741b;
+        color: #ffffff;
+    }
 /* _content/WebCrawler/Views/Home/SetInterval.cshtml.rz.scp.css */
 a[b-1rgylp1ycr] {
     text-decoration: none;

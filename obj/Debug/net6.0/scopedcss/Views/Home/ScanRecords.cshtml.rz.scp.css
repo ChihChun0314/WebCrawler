@@ -1,0 +1,13 @@
+a[b-zhlbsleydo] {
+    text-decoration: none;
+}
+
+.barbtn[b-zhlbsleydo] {
+    background-color: #5f5f5f;
+    color: #ffffff;
+}
+
+    .barbtn:hover[b-zhlbsleydo] {
+        background-color: #00741b;
+        color: #ffffff;
+    }

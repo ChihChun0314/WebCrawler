@@ -247,3 +247,13 @@ C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\ref\WebCrawler.dl
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.pdb
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.genruntimeconfig.cache
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\Home\SetInterval.cshtml.rz.scp.css
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\Home\ScanRecords.cshtml.rz.scp.css
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\Microsoft.SqlServer.Types.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.Properties.Resources.resources
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.csproj.GenerateResource.cache
