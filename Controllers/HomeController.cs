@@ -30,6 +30,7 @@ namespace WebCrawler.Controllers
                 if(Check != null)
                 {
                     HttpContext.Session.SetInt32("UserId", Check.UId);
+                    HttpContext.Session.SetString("UserName", Check.UName);
                     @ViewBag.complete = "登入成功";
                     return RedirectToAction("Index");
                 }
@@ -46,6 +47,7 @@ namespace WebCrawler.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register_Join([Bind("UName,UEmail,UPassword,PhoneNumber")]User user)
         {
@@ -65,6 +67,11 @@ namespace WebCrawler.Controllers
         {
             HttpContext.Session.Remove("UserId");
             return RedirectToAction("Login");
+        }
+
+        public IActionResult SetInterval()
+        {
+            return View("SetInterval");
         }
         public IActionResult test(string Url)
         {

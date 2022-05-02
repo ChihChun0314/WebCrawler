@@ -12,6 +12,20 @@ a[b-9zmjspnc2a] {
         background-color: #00741b;
         color: #ffffff;
     }
+/* _content/WebCrawler/Views/Home/SetInterval.cshtml.rz.scp.css */
+a[b-1rgylp1ycr] {
+    text-decoration: none;
+}
+
+.barbtn[b-1rgylp1ycr] {
+    background-color: #5f5f5f;
+    color: #ffffff;
+}
+
+    .barbtn:hover[b-1rgylp1ycr] {
+        background-color: #00741b;
+        color: #ffffff;
+    }
 /* _content/WebCrawler/Views/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */

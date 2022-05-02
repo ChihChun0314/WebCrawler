@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "設定掃描頻率";
+}
+<style type="text/css"> 
+   input[type="radio"]{
+  margin: 0 20px 0 20px;
+}
+</style>
+
+<body>
+    <div class="container text-center" style="margin-top: 0px;">
+        <h6 align="right">@Context.Session.GetString("UserName")</h6>
+    </div>
+    <div style="margin-top: 10px;">
+        <h2>設定掃描頻率</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Set_Interval" onsubmit="myFunction(); return false;">
+            <input type="text" style="margin-top: 10px;" placeholder="自訂標題" class="form-control" name="Name">
+            <input type="text" style="margin-top: 10px;" placeholder="網址" class="form-control"name="Url">
+        </form>
+        <h5 style="margin-top: 10px;">項目</h5>
+        <form>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">姓名
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">電話
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">地址
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">Email
+            </label>
+          </form>
+          <h5 style="margin-top: 10px;">頻率</h5>
+          <form>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">每天
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">每周
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">每月
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">每年
+            </label>
+          </form>
+        <form id = "my_form">
+            <button onClick="window.location.reload();" style="margin-top: 10px;" class="btn btn-secondary barbtn">確定</button>
+        </form>
+        
+    </div>
+    <script language="javascript">
+    </script>
+
+</body>

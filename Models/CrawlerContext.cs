@@ -29,7 +29,8 @@ namespace WebCrawler.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=Crawler;Trusted_Connection=True;User ID=sa;Password=1234");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-M6JF8F7\\MSSQLSERVER_2019;Database=Crawler;Trusted_Connection=True;User ID=sa;Password=pat900518");
             }
         }
 
