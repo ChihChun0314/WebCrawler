@@ -8,16 +8,12 @@ namespace WebCrawler.Controllers
 {
     public class HomeController : Controller
     {
-        SqlCommand com = new SqlCommand();
-        SqlDataReader dr;
-        SqlConnection conn = new SqlConnection();
-        List<User> userinfo = new List<User>();
         private readonly CrawlerContext DB;
 
         public HomeController(CrawlerContext _DB)
         {
             DB = _DB;
-            conn.ConnectionString = WebCrawler.Properties.Resources.ConnectionString;
+
         }
         public IActionResult Login()
         {
@@ -73,47 +69,6 @@ namespace WebCrawler.Controllers
         {
             HttpContext.Session.Remove("UserId");
             return RedirectToAction("Login");
-        }
-
-        public IActionResult SetInterval()
-        {
-            return View("SetInterval");
-        }
-        
-        public IActionResult ScanRecords()
-        {
-            fetchData();
-            return View(userinfo);
-        }
-
-        private void fetchData()
-        {
-            if(userinfo.Count > 0)
-            {
-                userinfo.Clear();
-            }
-            try
-            {
-                int id = (int)HttpContext.Session.GetInt32("UserId");
-                conn.Open();
-                com.Connection = conn;
-                com.CommandText = $"SELECT TOP (1000) [U_Email],[U_Password],[U_Name],[Phone_Number]FROM[Crawler].[dbo].[User] WHERE [U_ID]={id}";
-                dr = com.ExecuteReader();
-                while (dr.Read())
-                {
-                    userinfo.Add(new User() { UEmail = dr["U_Email"].ToString() 
-                    , UPassword = dr["U_Password"].ToString()
-                    , UName = dr["U_Name"].ToString()
-                    , PhoneNumber = dr["Phone_Number"].ToString()
-                    });
-                }
-                conn.Close();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
         }
 
         public IActionResult test(string Url)

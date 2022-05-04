@@ -53,16 +53,6 @@
                                 <a class='nav-link text-dark' asp-area='' asp-controller='Home' asp-action='Login_Out'>登出</a>;
                             }
                         </li>
-                        <li class="nav-item">
-                            @if(Context.Session.GetInt32("UserId") != null){
-                                <a class='nav-link text-dark' asp-area='' asp-controller='Home' asp-action='SetInterval'>掃描頻率</a>;
-                            }
-                        </li>
-                        <li class="nav-item">
-                            @if(Context.Session.GetInt32("UserId") != null){
-                                <a class='nav-link text-dark' asp-area='' asp-controller='Home' asp-action='ScanRecords'>檢測紀錄</a>;
-                            }
-                        </li>
                     </ul>
                 </div>
             </div>
