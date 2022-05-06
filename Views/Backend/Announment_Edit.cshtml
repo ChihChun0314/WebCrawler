@@ -1,0 +1,21 @@
+﻿@model WebCrawler.Models.Announment
+@{
+}
+
+<div class="card">
+    @ViewBag.EditError
+    <div class="card-header">
+        <h5>修改訊息</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Announment_Edit_run">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h6>標題</h6><br /><input type="text" required="required" name="Title" value="@Html.DisplayFor(i=>i.Title)"></li>
+                <li class="list-group-item"><h6>內容</h6><br /><textarea name="Content" required="required" rows="5" cols="33">@Html.DisplayFor(i=>i.Content)</textarea></li>
+                <input type="hidden" name="AnnoId" value="@Html.DisplayFor(i=>i.AnnoId)"/>
+                <li class="list-group-item"><input type="submit" value="送出"/></li>
+            </ul>
+        </form>
+        
+    </div>
+</div>

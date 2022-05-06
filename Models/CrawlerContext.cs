@@ -30,7 +30,7 @@ namespace WebCrawler.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-M6JF8F7\\MSSQLSERVER_2019;Database=Crawler;Trusted_Connection=True;User ID=sa;Password=pat900518");
+                optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=Crawler;Trusted_Connection=True;User ID=sa;Password=1234");
             }
         }
 
@@ -55,7 +55,7 @@ namespace WebCrawler.Models
 
             modelBuilder.Entity<Announment>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.AnnoId);
 
                 entity.ToTable("Announment");
 
@@ -118,9 +118,7 @@ namespace WebCrawler.Models
 
                 entity.ToTable("Manager");
 
-                entity.Property(e => e.MId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("M_ID");
+                entity.Property(e => e.MId).HasColumnName("M_ID");
 
                 entity.Property(e => e.Account).HasMaxLength(50);
 
@@ -139,9 +137,7 @@ namespace WebCrawler.Models
 
                 entity.ToTable("Message");
 
-                entity.Property(e => e.MesId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("Mes_ID");
+                entity.Property(e => e.MesId).HasColumnName("Mes_ID");
 
                 entity.Property(e => e.Content).HasColumnType("text");
 

@@ -1,0 +1,19 @@
+﻿
+@{
+
+}
+<div class="card">
+    <div class="card-header">
+        <a><h5>新增公告</h5></a>
+    </div>
+    <div class="card-body">
+        <form asp-action="Announment_Instert">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h6>標題</h6><br /><input type="text" required="required" name="Title" ></li>
+                <li class="list-group-item"><h6>內容</h6><br /><textarea name="Content" required="required" rows="5" cols="33"></textarea></li>
+                <li class="list-group-item"><input type="submit" value="送出"/></li>
+            </ul>
+        </form>
+    </div>
+</div>
+
