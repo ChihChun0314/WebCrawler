@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WebCrawler.Models.User>
+
+@{
+    ViewData["Title"] = "會員查詢";
+}
+
+<body>
+    <div class="container text-center" style="margin-top: 0px;">
+        <div class="row">
+            
+            <div class="col-12" id="a">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header text-s">
+                            <form asp-action="Search_User">                                  
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Name" placeholder="請輸入UserName">
+                                    @*<input class="form-control" style="margin-top: 10px;" type="text" name="Id" placeholder="請輸入UserID">*@
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Email" placeholder="請輸入UserEmail">
+                                    <!---
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Per" placeholder="請輸入權限代碼">
+                                    -->
+                                    <select name="Per">
+                                        <option >請選擇權限</option>
+                                        <option value="Z">審核中</option>
+                                        <option value="A">A權限</option>
+                                        <option value="B">B權限</option>
+                                        <option value="X">停權中</option>
+                                    </select>
+                                    <!----
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Year" placeholder="請輸入年" >
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Month" placeholder="請輸入月" >
+                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Day" placeholder="請輸入日" >
+                                    -->
+                                    <input type="submit" style="margin-top: 10px;" value="查詢" class="btn btn-secondary barbtn">
+                            </form>
+                        </div>
+                       
+                        
+                    </div>
+                </div>
+ <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->           
+                <table style="border:3px #cccccc solid;" cellpadding="10" border='1'>
+                    
+                    <tr>
+                        @*<th>ID</th>*@
+                        <th style="width:20%;">使用者名稱</th>
+                        <th style="width:40%;">Email</th>
+                        <th style="width:30%;">電話號碼</th>
+                        <th style="width:10%;">權限</th>
+                            
+		            </tr>
+	                
+                    <tbody>
+                        @foreach(var obj in Model)
+                        {
+                            <tr>
+                                @*<td >
+                                    @obj.UId
+				                </td>*@
+                                <td style="width:20%;">
+                                    <p>@obj.UName</p>
+				                </td>
+                                <td style="width:40%;">
+                                    <p>@obj.UEmail</p>
+				                </td>
+                                <td style="width:30%;">
+                                    <p>@obj.PhoneNumber</p>
+				                </td>
+                                <td style="width:10%;">
+                                    @switch(@obj.Permission) { 
+                                        
+                                        case "Z": 
+                                            <p>審核中</p>
+                                            break; 
+                                        case "A": 
+                                            <p>A權限</p>
+                                            break; 
+                                        case "B": 
+                                            <p>B權限</p>
+                                            break; 
+                                        case "X": 
+                                            <p>停權中</p>
+                                            break; 
+                                    } 
+                                    
+				                </td>
+                                <td>
+                                    <div class="w-75 btn-group" role="group">
+                                        <a asp-controller="Member" asp-action="User_Edit" asp-route-id="@obj.UId"
+                                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                                        <!---
+                                        <a asp-controller="Member" asp-action="User_Delete" asp-route-id="@obj.UId"
+                                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                        -->
+
+					                </div>
+				                </td>
+			                </tr>
+                        }
+                    </tbody>
+                </table>
+            
+            </div>  
+        </div>
+    </div>
+</body>
