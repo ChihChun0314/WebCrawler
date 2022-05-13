@@ -46,10 +46,10 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
-            var script = @"C:\Users\李培聖\Desktop\Crawler\WebCrawler\Detect.py";
+            var script = @"D:\雲科110-2\ASP\donet-test\test7\2022_05_01\Detect.py";
             var id = (int)HttpContext.Session.GetInt32("UserId");
             //var end = "10";
 
@@ -76,7 +76,7 @@ namespace WebCrawler.Controllers
             return RedirectToAction("PreAnalysis", "DataProcessing");
         }
 
-            private void fetchData()
+        private void fetchData()
         {
             if (userinfo.Count > 0)
             {
