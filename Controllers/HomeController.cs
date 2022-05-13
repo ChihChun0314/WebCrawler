@@ -34,7 +34,7 @@ namespace WebCrawler.Controllers
                     HttpContext.Session.SetInt32("UserId", Check.UId);
                     HttpContext.Session.SetString("UserName", Check.UName);
                     @ViewBag.complete = "登入成功";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Backend");
                 }
             }
             @ViewBag.complete = "登入失敗";

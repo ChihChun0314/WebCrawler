@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebCrawler.Models
 {
@@ -8,6 +9,7 @@ namespace WebCrawler.Models
         public int AnnoId { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }
+        
         public DateTime? Date { get; set; }
     }
 }

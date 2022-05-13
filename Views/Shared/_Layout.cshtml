@@ -23,6 +23,14 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!-- -----------------------boo--------------------- -->
 </head>
+<style>
+.sidebar{
+    color:#fff;
+}
+.sidebar:hover{
+    color:#000;
+}
+</style>
 <body>
     <!-- -----------------------boo--------------------- -->
 <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -36,7 +44,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebCrawler</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Backend" asp-action="Index">WebCrawler</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -44,13 +52,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Backend" asp-action="Index">Home</a>
                         </li><li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
                             @if(Context.Session.GetInt32("UserId") != null){
-                                <a class='nav-link text-dark' asp-area='' asp-controller='Home' asp-action='Login_Out'>登出</a>;
+                                <a class='nav-link text-dark' asp-controller='Home' asp-action='Login_Out'>登出</a>;
                             }
                         </li>
                     </ul>
@@ -60,26 +68,18 @@
     
     <div class="wrapper" style="margin-top: 55px;">
         <!-- Sidebar -->
+        @if(Context.Session.GetInt32("UserId") != null)
+        {
         <nav id="sidebar">
             <!--<div class="sidebar-header">
                 <h3>Bootstrap Sidebar</h3>
             </div>-->
-
+            
             <ul class="list-unstyled components">
                 
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">會員基本資料</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
+                    <a class="sidebar" asp-controller='Member' asp-action='User_Self'>會員基本資料</a>
+                    
                 </li>
                 <li>
                     <a href="#">通知訊息</a>
@@ -107,13 +107,33 @@
                 <li>
                     <a href="#">個人紀錄</a>
                 </li>
+                <li>
+                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='Detect'>網頁檢測</a>
+                </li>
+                <li>
+                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='SetInterval'>時程設定</a>
+                </li>
+                <li>
+                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='ScanRecords'>掃描紀錄</a>
+                </li>
+                <li>
+                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='PreAnalysis'>掃描結果</a>
+                </li>
+                <li>
+                    <a class="sidebar" asp-controller='Backend' asp-action='Announment_Manage'>後台公告</a>
+                </li>
+                <li>
+                    <a class="sidebar" asp-controller='Member' asp-action='Search_User'>會員管理</a>
+                </li>
             </ul>
+            
         </nav>
-    
+        }
         <div id="content" class="container text-center" >
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
+            @if (Context.Session.GetInt32("UserId") != null)
+            {
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
@@ -121,6 +141,7 @@
 
                 </div>
             </nav>
+            }
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>

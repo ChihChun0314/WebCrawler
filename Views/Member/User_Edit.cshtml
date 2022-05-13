@@ -17,22 +17,32 @@
 		</div>
 		@*<div asp-validation-summary="All"></div>*@
 		<input type="hidden" name="UId" asp-for="UId"/>
-		<div class="mb-3">
-			<label value="帳號名稱">帳號名稱</label>
-			<input type="text" name="UName" asp-for="UName" class="form-control" />
-		</div>
-		<div class="mb-3">
-			<label value="Email">電子郵件</label>
-			<input type="text" name="UEmail" asp-for="UEmail" class="form-control" />
-		</div>
-		<div class="mb-3">
-			<label value="密碼">密碼</label>
-			<input type="text" name="UPassword" asp-for="UPassword" class="form-control" />
-		</div>
-		<div class="mb-3">
-			<label value="電話號碼">電話號碼</label>
-			<input type="text" name="PhoneNumber" asp-for="PhoneNumber" class="form-control" />
-		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputValue" required="required" name="UName" asp-for="UName" />
+					<label for="floatingInputValue">帳號名稱</label>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputValue" required="required" name="UEmail" asp-for="UEmail" />
+					<label for="floatingInputValue">電子郵件</label>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputValue" required="required" name="UPassword" asp-for="UPassword" />
+					<label for="floatingInputValue">密碼</label>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputValue" required="required" name="PhoneNumber" asp-for="PhoneNumber" />
+					<label for="floatingInputValue">電話號碼</label>
+				</div>
+			</li>
+		</ul>
 		@if(Context.Session.GetInt32("UserId") == null){
 			<div class="mb-3">
 				<label value="權限">權限</label>
