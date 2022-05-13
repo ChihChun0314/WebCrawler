@@ -78,5 +78,96 @@ namespace WebCrawler.Controllers
             await DB.SaveChangesAsync();
             return RedirectToAction("Announment_Manage", "Backend");
         }
+
+        public async Task<IActionResult> Message_Manage()
+        {
+            List<User_Message> User_Message = new List<User_Message>();
+            var message = from User in DB.Users
+                          join Message in DB.Messages
+                          on User.UId equals Message.UId
+                          select new { User, Message };
+            var ms = await message.ToListAsync();
+            foreach (var odj in ms)
+            {
+                User_Message.Add(new User_Message()
+                {
+                    UId = odj.User.UId,
+                    UName = odj.User.UName,
+                    MesId = odj.Message.MesId,
+                    UEmail = odj.User.UEmail,
+                    Content = odj.Message.Content,
+                    Date = odj.Message.Date,
+                });
+            }
+            return View(User_Message);
+        }
+        public IActionResult Message_Create()
+        {
+            List<User> user = new List<User>();
+            var u = DB.Users.ToList();
+            foreach(var odj in u)
+            {
+                user.Add(new User()
+                {
+                    UId = odj.UId,
+                    UEmail = odj.UEmail,
+                    UName=odj.UName,
+                });
+            }
+            return View(user);
+        }
+        public async Task<IActionResult> Message_Instert(string UEmail, [Bind("Content")] Message UMessage)
+        {
+            var message = DB.Users.Where(u => u.UEmail == UEmail).First();
+            if (message != null)
+            {
+                UMessage.UId = message.UId;
+                UMessage.Date = DateTime.Now;
+                DB.Add(UMessage);
+                await DB.SaveChangesAsync();
+                return RedirectToAction("Message_Manage", "Backend");
+            }
+            ViewBag.state = "沒有該使用者";
+            return RedirectToAction("Message_Create", "Backend");
+        }
+        public async Task<IActionResult> Message_Edit(int id)
+        {
+            var message = await DB.Messages.Where(x => x.MesId == id).FirstOrDefaultAsync();
+            var user = await DB.Users.Where(x=>x.UId == message.UId).FirstOrDefaultAsync();
+            User_Message User_Message = new User_Message();
+            User_Message.UId = user.UId;
+            User_Message.UName = user.UName;
+            User_Message.UEmail = user.UEmail;
+            User_Message.MesId = message.MesId;
+            User_Message.Date = message.Date;
+            User_Message.Content = message.Content;
+            return View(User_Message);
+        }
+
+        public async Task<IActionResult> Message_Edit_run(int id, [Bind("MesId,UId,Content,Date")] Message message)
+        {
+            if(message.Date == null)
+            {
+                message.Date = DateTime.Now;
+            }
+            try
+            {
+                DB.Update(message);
+                await DB.SaveChangesAsync();
+                return RedirectToAction("Message_Manage", "Backend"); ;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                ViewBag.EditError = "修改失敗";
+                return RedirectToAction("Message_Edit", "Backend", new { id = id });
+            }
+        }
+        public async Task<IActionResult> Message_del(int id)
+        {
+            var message = await DB.Messages.Where(x => x.MesId == id).FirstAsync();
+            DB.Messages.Remove(message);
+            DB.SaveChanges();
+            return RedirectToAction("Message_Manage", "Backend");
+        }
     }
 }

@@ -35,8 +35,44 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Core/C\#/WebCrawler/Views/Backend/Message_Content.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0NvbnRlbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Backend/Message_Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Backend/Message_Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Backend/Message_Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX01hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/DataProcessing/Detect.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcRGV0ZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/DataProcessing/Temp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcVGVtcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Core/C\#/WebCrawler/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Member/Search_User.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFNlYXJjaF9Vc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Member/User_Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFVzZXJfRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/Member/User_Self.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFVzZXJfU2VsZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Core/C\#/WebCrawler/Views/Shared/Error.cshtml]
@@ -54,6 +90,14 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/Core/C\#/WebCrawler/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Core/C\#/WebCrawler/Views/DataProcessing/PreAnalysis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcUHJlQW5hbHlzaXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ik614t0v3b
+
+[D:/Core/C\#/WebCrawler/Views/DataProcessing/SetInterval.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcU2V0SW50ZXJ2YWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-kqcwhgkkml
 
 [D:/Core/C\#/WebCrawler/Views/Home/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
