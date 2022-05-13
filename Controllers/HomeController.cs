@@ -22,6 +22,11 @@ namespace WebCrawler.Controllers
         [HttpPost]
         public IActionResult Login_Check(string Email,string Password)
         {
+            if(Email=="admin" && Password == "aaa")
+            {
+                HttpContext.Session.SetString("admin", "admin");
+                return RedirectToAction("Index", "Backend");
+            }
             if (Email == null || Password == null)
             {
                 return View("Login");
@@ -68,6 +73,7 @@ namespace WebCrawler.Controllers
         public IActionResult Login_Out()
         {
             HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("admin");
             return RedirectToAction("Login");
         }
 

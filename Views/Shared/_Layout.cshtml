@@ -57,7 +57,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            @if(Context.Session.GetInt32("UserId") != null){
+                            @if(Context.Session.GetInt32("UserId") != null || Context.Session.GetString("admin") == "admin"){
                                 <a class='nav-link text-dark' asp-controller='Home' asp-action='Login_Out'>登出</a>;
                             }
                         </li>
@@ -76,10 +76,11 @@
             </div>-->
             
             <ul class="list-unstyled components">
-                
                 <li class="active">
+                    <label>歡迎~@Context.Session.GetString("UserName")使用者</label>
+                </li>
+                <li>
                     <a class="sidebar" asp-controller='Member' asp-action='User_Self'>會員基本資料</a>
-                    
                 </li>
                 <li>
                     <a href="#">通知訊息</a>
@@ -119,6 +120,32 @@
                 <li>
                     @*<a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='PreAnalysis'>掃描結果</a>*@
                 </li>
+                @*<li>
+                    <a class="sidebar" asp-controller='Backend' asp-action='Announment_Manage'>後台公告</a>
+                </li>
+                <li>
+                    <a class="sidebar" asp-controller='Member' asp-action='Search_User'>會員管理</a>
+                </li>
+                <li>
+                    <a class="sidebar" asp-controller='Backend' asp-action='Message_Manage'>後台訊息</a>
+                </li>*@
+            </ul>
+            
+        </nav>
+        }
+        @if (Context.Session.GetString("admin") == "admin")
+        {
+        <nav id="sidebar">
+            <!--<div class="sidebar-header">
+                <h3>Bootstrap Sidebar</h3>
+            </div>-->
+            
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <label>
+                        歡迎~@Context.Session.GetString("admin")管理者
+                    </label>
+                </li>
                 <li>
                     <a class="sidebar" asp-controller='Backend' asp-action='Announment_Manage'>後台公告</a>
                 </li>
@@ -133,7 +160,7 @@
         </nav>
         }
         <div id="content" class="container text-center" >
-            @if (Context.Session.GetInt32("UserId") != null)
+            @if (Context.Session.GetInt32("UserId") != null || Context.Session.GetString("UserId") == "admin")
             {
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
