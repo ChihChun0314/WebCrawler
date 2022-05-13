@@ -266,3 +266,5 @@ D:\Core\C#\WebCrawler\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Da
 D:\Core\C#\WebCrawler\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.Properties.Resources.resources
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.csproj.GenerateResource.cache
+D:\Core\C#\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\PreAnalysis.cshtml.rz.scp.css
+D:\Core\C#\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\SetInterval.cshtml.rz.scp.css

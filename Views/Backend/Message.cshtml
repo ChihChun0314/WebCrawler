@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<WebCrawler.Models.Message>
+@{
+}
+<div class="card">
+    <div class="card-header">
+        <h5>公告</h5>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            @foreach(var i in Model)
+            {
+                @*<li class="list-group-item">
+                    <a class="btn btn-outline-dark" asp-action="Announment_Content" asp-route-id="@i.AnnoId">
+                        @Html.DisplayFor(model => i.Title)
+                    </a>
+                    
+                </li>*@
+                <a class="btn btn-outline-secondary" asp-action="Message_Content" asp-route-id="@i.MesId">
+                        @Html.DisplayFor(model => i.Title)&emsp;公佈日期:@Html.DisplayFor(model => i.Date)
+                </a>
+                <br><br>
+            }
+        </ul>
+    </div>
+</div>

@@ -38,7 +38,7 @@
                             @Html.DisplayFor(model => i.UName)/@Html.DisplayFor(model => i.UEmail)
                         </th>
                         <td>
-                            <span class="d-inline-block text-truncate" style="max-width: 390px;">@Html.DisplayFor(model => i.Date)</span>
+                            <span class="d-inline-block text-truncate" style="max-width: 390px;">@Html.DisplayFor(model => i.Title)&emsp;公佈日期:@Html.DisplayFor(model => i.Date)</span>
                         </td>
                         <td>
                             <a role="button" class="btn btn-success barbtn" asp-action="Message_Edit" asp-route-id="@i.MesId">編輯</a>&emsp;&emsp;

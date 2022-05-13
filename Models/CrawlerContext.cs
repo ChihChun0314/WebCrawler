@@ -143,6 +143,8 @@ namespace WebCrawler.Models
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
+                entity.Property(e => e.Title).HasMaxLength(50);
+
                 entity.Property(e => e.UId).HasColumnName("U_ID");
             });
 

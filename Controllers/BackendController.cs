@@ -19,10 +19,10 @@ namespace WebCrawler.Controllers
             var all = from m in DB.Announments select m;
             return View(all);
         }
-        
+
         public async Task<IActionResult> Announment_Content(int id)
         {
-            var content = await DB.Announments.Where(x=>x.AnnoId == id).FirstAsync();
+            var content = await DB.Announments.Where(x => x.AnnoId == id).FirstAsync();
             return View(content);
         }
 
@@ -38,7 +38,7 @@ namespace WebCrawler.Controllers
             return View(message);
         }
 
-        public async Task<IActionResult> Announment_Edit_run(int id,[Bind("AnnoId,Title,Content,Date")]Announment announment)
+        public async Task<IActionResult> Announment_Edit_run(int id, [Bind("AnnoId,Title,Content,Date")] Announment announment)
         {
 
             if (announment.Date == null)
@@ -49,18 +49,18 @@ namespace WebCrawler.Controllers
             {
                 DB.Update(announment);
                 await DB.SaveChangesAsync();
-                return RedirectToAction("Announment_Manage", "Backend"); 
+                return RedirectToAction("Announment_Manage", "Backend");
             }
             catch (DbUpdateConcurrencyException)
             {
                 ViewBag.EditError = "修改失敗";
                 return RedirectToAction("Announment_Edit", "Backend", new { id = id });
             }
-            
+
         }
         public async Task<IActionResult> Announment_del(int id)
         {
-            var message = await DB.Announments.Where(x=>x.AnnoId == id).FirstAsync();
+            var message = await DB.Announments.Where(x => x.AnnoId == id).FirstAsync();
             DB.Announments.Remove(message);
             DB.SaveChanges();
             return RedirectToAction("Announment_Manage", "Backend");
@@ -71,7 +71,7 @@ namespace WebCrawler.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Announment_Instert([Bind("Title,Content")]Announment announment)
+        public async Task<IActionResult> Announment_Instert([Bind("Title,Content")] Announment announment)
         {
             announment.Date = DateTime.Now;
             DB.Add(announment);
@@ -97,6 +97,7 @@ namespace WebCrawler.Controllers
                     UEmail = odj.User.UEmail,
                     Content = odj.Message.Content,
                     Date = odj.Message.Date,
+                    Title = odj.Message.Title,
                 });
             }
             return View(User_Message);
@@ -105,18 +106,18 @@ namespace WebCrawler.Controllers
         {
             List<User> user = new List<User>();
             var u = DB.Users.ToList();
-            foreach(var odj in u)
+            foreach (var odj in u)
             {
                 user.Add(new User()
                 {
                     UId = odj.UId,
                     UEmail = odj.UEmail,
-                    UName=odj.UName,
+                    UName = odj.UName,
                 });
             }
             return View(user);
         }
-        public async Task<IActionResult> Message_Instert(string UEmail, [Bind("Content")] Message UMessage)
+        public async Task<IActionResult> Message_Instert(string UEmail, [Bind("Title,Content")] Message UMessage)
         {
             var message = DB.Users.Where(u => u.UEmail == UEmail).First();
             if (message != null)
@@ -133,9 +134,10 @@ namespace WebCrawler.Controllers
         public async Task<IActionResult> Message_Edit(int id)
         {
             var message = await DB.Messages.Where(x => x.MesId == id).FirstOrDefaultAsync();
-            var user = await DB.Users.Where(x=>x.UId == message.UId).FirstOrDefaultAsync();
+            var user = await DB.Users.Where(x => x.UId == message.UId).FirstOrDefaultAsync();
             User_Message User_Message = new User_Message();
             User_Message.UId = user.UId;
+            User_Message.Title = message.Title;
             User_Message.UName = user.UName;
             User_Message.UEmail = user.UEmail;
             User_Message.MesId = message.MesId;
@@ -144,9 +146,9 @@ namespace WebCrawler.Controllers
             return View(User_Message);
         }
 
-        public async Task<IActionResult> Message_Edit_run(int id, [Bind("MesId,UId,Content,Date")] Message message)
+        public async Task<IActionResult> Message_Edit_run(int id, [Bind("MesId,UId,Content,Date,Title")] Message message)
         {
-            if(message.Date == null)
+            if (message.Date == null)
             {
                 message.Date = DateTime.Now;
             }
@@ -168,6 +170,21 @@ namespace WebCrawler.Controllers
             DB.Messages.Remove(message);
             DB.SaveChanges();
             return RedirectToAction("Message_Manage", "Backend");
+        }
+        public async Task<IActionResult> Message()
+        {
+
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                var Uid = HttpContext.Session.GetInt32("UserId");
+                var message = await DB.Messages.Where(x => x.UId == Uid).ToListAsync();
+                return View(message);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
         }
     }
 }

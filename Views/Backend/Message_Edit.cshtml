@@ -25,6 +25,12 @@
                 </li>
                 <li class="list-group-item">
                     <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInputValue" required="required" name="Title" value="@Html.DisplayFor(i=>i.Title)" />
+                        <label for="floatingTextarea">輸入標題</label>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="form-floating">
                         <textarea style="height: 100px" class="form-control" id="floatingTextarea" name="Content" required="required" rows="5" cols="33">@Html.DisplayFor(i=>i.Content)</textarea>
                         <label for="floatingTextarea">輸入內容</label>
                     </div>
