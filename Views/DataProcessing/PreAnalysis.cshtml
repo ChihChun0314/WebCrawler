@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "檢測結果";
+    string[] Tableheaders = new string[] {"Content"
+      ,"URL"
+      ,"Web_name" };
+}
+
+<head>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+</head>
+
+<style type="text/css"> 
+   input[type="radio"]{
+  margin: 0 20px 0 20px;
+}
+</style>
+<div class="table">
+        <div class="container text-center" style="margin-top: 0px;">
+        <h6 align="right">@Context.Session.GetString("UserName")</h6>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in Tableheaders)
+                    {
+                        <th> 
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach(var Data in Model)
+                    {
+                        <tr>
+                            <td>@Data.Content</td>
+                            <td>@Data.Url</td>
+                            <td>@Data.WebName</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script type="text/javascript">
+
+</script>
