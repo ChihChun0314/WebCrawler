@@ -56,18 +56,29 @@ namespace WebCrawler.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register_Join([Bind("UName,UEmail,UPassword,PhoneNumber")]User user)
+        public async Task<IActionResult> Register_Join(string UEmail,[Bind("UName,UEmail,UPassword,PhoneNumber")]User user)
         {
-            if(user.UEmail != null && user.UName != null && user.UPassword != null)
+            if (DB.Users.Where(x => x.UEmail == UEmail).First() == null)
             {
-                user.Permission = "user";
-                DB.Add(user);
-                await DB.SaveChangesAsync();
-                @ViewBag.complete = "註冊成功";
+                if (user.UEmail != null && user.UName != null && user.UPassword != null)
+                {
+                    user.Permission = "user";
+                    DB.Add(user);
+                    await DB.SaveChangesAsync();
+                    @ViewBag.complete = "註冊成功";
+                    return View("Login");
+                }
+                else
+                {
+                    @ViewBag.complete = "註冊失敗";
+                    return View("Login");
+                }
+            }
+            else
+            {
+                @ViewBag.complete = "Email重複註冊";
                 return View("Login");
-            }            
-            @ViewBag.complete = "註冊失敗";
-            return View("Register");
+            }
         }
 
         public IActionResult Login_Out()

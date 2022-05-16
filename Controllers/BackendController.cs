@@ -13,11 +13,30 @@ namespace WebCrawler.Controllers
             DB = _DB;
 
         }
+        public bool CheckSession()
+        {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public async Task<IActionResult> Index()
         {
-            var Announment = await DB.Announments.ToListAsync();
-            var all = from m in DB.Announments select m;
-            return View(all);
+            if (CheckSession())
+            {
+                var Announment = await DB.Announments.ToListAsync();
+                var all = from m in DB.Announments select m;
+                return View(all);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            
         }
 
         public async Task<IActionResult> Announment_Content(int id)
@@ -173,23 +192,36 @@ namespace WebCrawler.Controllers
         }
         public async Task<IActionResult> Message()
         {
-
-            if (HttpContext.Session.GetInt32("UserId") != null)
+            if (CheckSession())
             {
-                var Uid = HttpContext.Session.GetInt32("UserId");
-                var message = await DB.Messages.Where(x => x.UId == Uid).ToListAsync();
-                return View(message);
+                if (HttpContext.Session.GetInt32("UserId") != null)
+                {
+                    var Uid = HttpContext.Session.GetInt32("UserId");
+                    var message = await DB.Messages.Where(x => x.UId == Uid).ToListAsync();
+                    return View(message);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
             }
             else
             {
                 return RedirectToAction("Login", "Home");
             }
-
         }
         public async Task<IActionResult> Message_Content(int id)
         {
-            var content = await DB.Messages.Where(x => x.MesId == id).FirstAsync();
-            return View(content);
+            if (CheckSession())
+            {
+                var content = await DB.Messages.Where(x => x.MesId == id).FirstAsync();
+                return View(content);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            
         }
     }
 }
