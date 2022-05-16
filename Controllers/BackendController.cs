@@ -15,7 +15,7 @@ namespace WebCrawler.Controllers
         }
         public bool CheckSession()
         {
-            if (HttpContext.Session.GetInt32("UserId") != null)
+            if (HttpContext.Session.GetInt32("UserId") != null || HttpContext.Session.GetInt32("admin") != null)
             {
                 return true;
             }
