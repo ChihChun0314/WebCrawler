@@ -1,4 +1,4 @@
-﻿@model WebCrawler.Models.Announment
+﻿@model WebCrawler.Models.Message
 <div class="card">
     <div class="card-header">
         <h5>@Html.DisplayFor(i => i.Title)</h5>
@@ -8,7 +8,7 @@
              <li class="list-group-item"><a>@Html.DisplayFor(i => i.Content)</a></li>
              <li class="list-group-item"><a>公佈日期:@Html.DisplayFor(i => i.Date)</a></li>
         </ul>
-        <a class="btn btn-secondary" asp-controller='Backend' asp-action='Index'>返回</a>
+        <a class="btn btn-secondary" asp-controller='Backend' asp-action='Message'>返回</a>
     </div>
 </div>
 

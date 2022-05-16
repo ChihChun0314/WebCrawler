@@ -186,5 +186,10 @@ namespace WebCrawler.Controllers
             }
 
         }
+        public async Task<IActionResult> Message_Content(int id)
+        {
+            var content = await DB.Messages.Where(x => x.MesId == id).FirstAsync();
+            return View(content);
+        }
     }
 }
