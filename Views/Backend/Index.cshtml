@@ -17,7 +17,7 @@
                     
                 </li>*@
                 <a class="btn btn-outline-secondary" asp-action="Announment_Content" asp-route-id="@i.AnnoId">
-                        @Html.DisplayFor(model => i.Title)&emsp;公佈日期:@Html.DisplayFor(model => i.Date)
+                        @Html.DisplayFor(model => i.Title)&emsp;公佈日期:@Convert.ToDateTime(i.Date).ToString("yyyy/MM/dd")
                 </a>
                 <br><br>
             }

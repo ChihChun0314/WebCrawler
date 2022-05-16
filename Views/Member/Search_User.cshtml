@@ -13,14 +13,15 @@
                     <div class="card">
                         <div class="card-header text-s">
                             <form asp-action="Search_User">                                  
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Name" placeholder="請輸入UserName">
+                                    <input class="form-control" type="text" name="Name" placeholder="請輸入UserName">
                                     @*<input class="form-control" style="margin-top: 10px;" type="text" name="Id" placeholder="請輸入UserID">*@
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Email" placeholder="請輸入UserEmail">
+                                    <input class="form-control" type="text" name="Email" placeholder="請輸入UserEmail">
                                     <!---
                                     <input class="form-control" style="margin-top: 10px;" type="text" name="Per" placeholder="請輸入權限代碼">
                                     -->
-                                    <select name="Per">
-                                        <option >請選擇權限</option>
+                                    <br />
+                                    <select class="form-select" name="Per">
+                                        <option selected>請選擇權限</option>
                                         <option value="Z">審核中</option>
                                         <option value="A">A權限</option>
                                         <option value="B">B權限</option>
@@ -31,69 +32,53 @@
                                     <input class="form-control" style="margin-top: 10px;" type="text" name="Month" placeholder="請輸入月" >
                                     <input class="form-control" style="margin-top: 10px;" type="text" name="Day" placeholder="請輸入日" >
                                     -->
-                                    <input type="submit" style="margin-top: 10px;" value="查詢" class="btn btn-secondary barbtn">
+                                    <br />
+                                    <input type="submit" value="查詢" class="btn btn-secondary barbtn">
                             </form>
                         </div>
-                       
-                        
                     </div>
                 </div>
- <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->           
-                <table style="border:3px #cccccc solid;" cellpadding="10" border='1'>
-                    
-                    <tr>
-                        @*<th>ID</th>*@
-                        <th style="width:20%;">使用者名稱</th>
-                        <th style="width:40%;">Email</th>
-                        <th style="width:30%;">電話號碼</th>
-                        <th style="width:10%;">權限</th>
-                            
-		            </tr>
-	                
+ <!----------------------------------------------------------------------------------------------------->           
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th scope="col">User</th>
+                            <th scope="col">Email</th>
+                            @*<th scope="col">Phone</th>*@
+                            <th scope="col">權限</th>
+                            <th scope="col"></th>
+		                </tr>
+	                </thead>
                     <tbody>
                         @foreach(var obj in Model)
                         {
                             <tr>
-                                @*<td >
-                                    @obj.UId
-				                </td>*@
-                                <td style="width:20%;">
-                                    <p>@obj.UName</p>
-				                </td>
-                                <td style="width:40%;">
-                                    <p>@obj.UEmail</p>
-				                </td>
-                                <td style="width:30%;">
-                                    <p>@obj.PhoneNumber</p>
-				                </td>
-                                <td style="width:10%;">
+                                <td>@obj.UName</td>
+                                <td>@obj.UEmail</td>
+                                @*<td>@obj.PhoneNumber</td>*@
+                                <td>
                                     @switch(@obj.Permission) { 
                                         
-                                        case "Z": 
-                                            <p>審核中</p>
+                                        case "Z":
+                                            <label>審核中</label>
                                             break; 
                                         case "A": 
-                                            <p>A權限</p>
+                                            <label>A權限</label>
                                             break; 
                                         case "B": 
-                                            <p>B權限</p>
+                                            <label>B權限</label>
                                             break; 
                                         case "X": 
-                                            <p>停權中</p>
+                                            <label>停權中</label>
                                             break; 
-                                    } 
-                                    
+                                    }
 				                </td>
                                 <td>
-                                    <div class="w-75 btn-group" role="group">
-                                        <a asp-controller="Member" asp-action="User_Edit" asp-route-id="@obj.UId"
-                                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                                    <a asp-controller="Member" asp-action="User_Edit" asp-route-id="@obj.UId" class="btn btn-primary mx-2">Edit</a>
                                         <!---
-                                        <a asp-controller="Member" asp-action="User_Delete" asp-route-id="@obj.UId"
-                                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                        <a asp-controller="Member" asp-action="User_Delete" asp-route-id=@*"@obj.UId*@" class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
                                         -->
-
-					                </div>
 				                </td>
 			                </tr>
                         }

@@ -2,14 +2,12 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model IEnumerable<WebCrawler.Models.User_Message>
-@{
-}
 <div class="card">
     <div class="card-header">
         <div class=row>
             
             <div class="col-8">
-              <h5>公告</h5>
+              <h5>訊息</h5>
             </div>
         
             <div class="col-4 justify-content-end">
@@ -26,7 +24,8 @@
         </div>*@
         <table class="table">
             <thead>
-                <th scope="col">使用者/Email</th>
+                <th scope="col">使用者</th>
+                <th scope="col">標題</th>
                 <th scope="col">公佈日期</th>
                 <th scope="col">選項</th>
             </thead>
@@ -34,14 +33,17 @@
                 @foreach(var i in Model)
                 {
                     <tr>
-                        <th scope="row">
-                            @Html.DisplayFor(model => i.UName)/@Html.DisplayFor(model => i.UEmail)
-                        </th>
-                        <td>
-                            <span class="d-inline-block text-truncate" style="max-width: 390px;">@Html.DisplayFor(model => i.Title)&emsp;公佈日期:@Html.DisplayFor(model => i.Date)</span>
+                        <td scope="row">
+                            @Html.DisplayFor(model => i.UName)
                         </td>
                         <td>
-                            <a role="button" class="btn btn-success barbtn" asp-action="Message_Edit" asp-route-id="@i.MesId">編輯</a>&emsp;&emsp;
+                            <span class="d-inline-block text-truncate" style="max-width: 390px;">@Html.DisplayFor(model => i.Title)</span>
+                        </td>
+                        <td>
+                            <span class="d-inline-block text-truncate" style="max-width: 390px;">@Convert.ToDateTime(i.Date).ToString("yyyy/MM/dd")</span>
+                        </td>
+                        <td>
+                            <a role="button" class="btn btn-success barbtn" asp-action="Message_Edit" asp-route-id="@i.MesId">編輯</a>
                             <a role="button" class="btn btn-danger barbtn" asp-action="Message_del" asp-route-id="@i.MesId" onclick="return confirm('Are you sure you want to delete this?')" >刪除</a>
                         </td>
                     </tr>

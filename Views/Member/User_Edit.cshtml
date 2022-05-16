@@ -42,22 +42,23 @@
 					<label for="floatingInputValue">電話號碼</label>
 				</div>
 			</li>
+			<li class="list-group-item">
+				<div class="form-floating">
+					@if(Context.Session.GetString("admin") == "admin"){
+						<select asp-for="Permission" class="form-select" id="floatingInputValue" required="required">
+						    <option selected>請輸入權限代碼</option>
+						    <option value="Z">審核中</option>
+						    <option value="A">A權限</option>
+						    <option value="B">B權限</option>
+						    <option value="X">停權中</option>                         
+						</select>
+						<label for="floatingInputValue">權限:</label>
+					}else{
+						<input type="hidden" name="Permission" asp-for="Permission"/>
+					}
+				</div>
+			</li>
 		</ul>
-		@if(Context.Session.GetInt32("UserId") == null){
-			<div class="mb-3">
-				<label value="權限">權限</label>
-				<select asp-for="Permission">
-			        <option >請輸入權限代碼</option>
-			        <option value="Z">審核中</option>
-			        <option value="A">A權限</option>
-			        <option value="B">B權限</option>
-			        <option value="X">停權中</option>                         
-			    </select>
-			</div>
-		}else{
-			<input type="hidden" name="Permission" asp-for="Permission"/>
-		}
-
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
 		@if(Context.Session.GetInt32("UserId") != null){
 			<a asp-controller="Member" asp-action="User_Self" class="btn btn-secondary" style="width:150px">

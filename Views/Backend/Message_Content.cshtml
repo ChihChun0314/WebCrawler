@@ -5,8 +5,10 @@
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">
-             <li class="list-group-item"><a>@Html.DisplayFor(i => i.Content)</a></li>
-             <li class="list-group-item"><a>公佈日期:@Html.DisplayFor(i => i.Date)</a></li>
+             <li class="list-group-item">
+                 <textarea class="form-control" id="floatingTextarea" name="Content" required="required" rows="5" cols="33" readonly>@Html.DisplayFor(i => i.Content)</textarea>
+             </li>
+             <li class="list-group-item">公佈日期:@Html.DisplayFor(i => i.Date)</li>
         </ul>
         <a class="btn btn-secondary" asp-controller='Backend' asp-action='Message'>返回</a>
     </div>
