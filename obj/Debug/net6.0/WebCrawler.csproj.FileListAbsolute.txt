@@ -246,8 +246,6 @@ C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.dll
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\ref\WebCrawler.dll
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.pdb
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\WebCrawler.genruntimeconfig.cache
-C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\Home\SetInterval.cshtml.rz.scp.css
-C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\Home\ScanRecords.cshtml.rz.scp.css
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\Microsoft.SqlServer.Types.dll
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\System.Data.SqlClient.dll
 C:\Users\李培聖\Desktop\Crawler\WebCrawler\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
@@ -268,3 +266,6 @@ D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.Properties.Resources.resources
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\WebCrawler.csproj.GenerateResource.cache
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\PreAnalysis.cshtml.rz.scp.css
 D:\Core\C#\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\SetInterval.cshtml.rz.scp.css
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\PreAnalysis.cshtml.rz.scp.css
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\SetInterval.cshtml.rz.scp.css
+C:\Users\李培聖\Desktop\Crawler\WebCrawler\obj\Debug\net6.0\scopedcss\Views\DataProcessing\PostAnalysis.cshtml.rz.scp.css

@@ -8,105 +8,109 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebCrawler
 build_property.RootNamespace = WebCrawler
-build_property.ProjectDir = D:\Core\C#\WebCrawler\
+build_property.ProjectDir = C:\Users\李培聖\Desktop\Crawler\WebCrawler\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Core\C#\WebCrawler
+build_property.MSBuildProjectDirectory = C:\Users\李培聖\Desktop\Crawler\WebCrawler
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Announment_Content.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Announment_Content.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxBbm5vdW5tZW50X0NvbnRlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Announment_Create.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Announment_Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxBbm5vdW5tZW50X0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Announment_Edit.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Announment_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxBbm5vdW5tZW50X0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Announment_Manage.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Announment_Manage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxBbm5vdW5tZW50X01hbmFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Index.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Message.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Message.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Message_Content.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Message_Content.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0NvbnRlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Message_Create.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Message_Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Message_Edit.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Message_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Backend/Message_Manage.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Backend/Message_Manage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxNZXNzYWdlX01hbmFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/DataProcessing/Detect.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/DataProcessing/Detect.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcRGV0ZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/DataProcessing/Temp.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/DataProcessing/Temp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcVGVtcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Home/Index.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Member/Search_User.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Member/Search_User.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFNlYXJjaF9Vc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Member/User_Edit.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Member/User_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFVzZXJfRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Member/User_Self.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Member/User_Self.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFVzZXJfU2VsZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Shared/Error.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/_ViewImports.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/_ViewStart.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Core/C\#/WebCrawler/Views/DataProcessing/PreAnalysis.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/DataProcessing/PostAnalysis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcUG9zdEFuYWx5c2lzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-wafq898u8e
+
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/DataProcessing/PreAnalysis.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcUHJlQW5hbHlzaXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ik614t0v3b
 
-[D:/Core/C\#/WebCrawler/Views/DataProcessing/SetInterval.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/DataProcessing/SetInterval.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVByb2Nlc3NpbmdcU2V0SW50ZXJ2YWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kqcwhgkkml
 
-[D:/Core/C\#/WebCrawler/Views/Home/Login.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Home/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-9zmjspnc2a
 
-[D:/Core/C\#/WebCrawler/Views/Shared/_Layout.cshtml]
+[C:/Users/李培聖/Desktop/Crawler/WebCrawler/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-laa3aud7vk
