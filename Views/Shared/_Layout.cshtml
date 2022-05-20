@@ -68,13 +68,9 @@
     
     <div class="wrapper" style="margin-top: 55px;">
         <!-- Sidebar -->
-        @if(Context.Session.GetInt32("UserId") != null)
+        @if(Context.Session.GetInt32("UserId") != null && Context.Session.GetInt32("State")==0)
         {
         <nav id="sidebar">
-            <!--<div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-            </div>-->
-            
             <ul class="list-unstyled components">
                 <li class="active">
                     <label>歡迎~@Context.Session.GetString("UserName")使用者</label>
@@ -83,27 +79,10 @@
                     <a class="sidebar" asp-controller='Member' asp-action='User_Self'>會員基本資料</a>
                 </li>
                 <li>
-                    <a href="#">通知訊息</a>
+                    <a class="sidebar" asp-controller='Backend' asp-action='Message'>通知訊息</a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">網頁檢測</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">定期檢測設定</a>
-                </li>
-                <li>
-                    <a href="#">檢測結果</a>
+                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='SetInterval'>定期檢測設定</a>
                 </li>
                 <li>
                     <a href="#">個人紀錄</a>
@@ -111,24 +90,6 @@
                 <li>
                     <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='Detect'>網頁檢測</a>
                 </li>
-                <li>
-                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='SetInterval'>時程設定</a>
-                </li>
-                <li>
-                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action=''>掃描紀錄</a>
-                </li>
-                <li>
-                    @*<a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='PreAnalysis'>掃描結果</a>*@
-                </li>
-                @*<li>
-                    <a class="sidebar" asp-controller='Backend' asp-action='Announment_Manage'>後台公告</a>
-                </li>
-                <li>
-                    <a class="sidebar" asp-controller='Member' asp-action='Search_User'>會員管理</a>
-                </li>
-                <li>
-                    <a class="sidebar" asp-controller='Backend' asp-action='Message_Manage'>後台訊息</a>
-                </li>*@
             </ul>
             
         </nav>
@@ -136,10 +97,6 @@
         @if (Context.Session.GetString("admin") == "admin")
         {
         <nav id="sidebar">
-            <!--<div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-            </div>-->
-            
             <ul class="list-unstyled components">
                 <li class="active">
                     <label>
@@ -155,12 +112,15 @@
                 <li>
                     <a class="sidebar" asp-controller='Backend' asp-action='Message_Manage'>後台訊息</a>
                 </li>
+                <li>
+                    <a class="sidebar" asp-controller='StatusSetting' asp-action='StatusSetting_Manager'>系統狀態設定</a>
+                </li>
             </ul>
             
         </nav>
         }
         <div id="content" class="container text-center" >
-            @if (Context.Session.GetInt32("UserId") != null || Context.Session.GetString("UserId") == "admin")
+            @if ((Context.Session.GetInt32("UserId") != null && Context.Session.GetInt32("State")==0) || Context.Session.GetString("admin") == "admin")
             {
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">

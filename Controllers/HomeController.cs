@@ -42,10 +42,12 @@ namespace WebCrawler.Controllers
                     var n = DB.Managers.Where(x => x.Account == "admin").FirstOrDefault();
                     if (n.State == 0)
                     {
+                        HttpContext.Session.SetInt32("State", 0);
                         return RedirectToAction("Index", "Backend");
                     }
                     else
                     {
+                        HttpContext.Session.SetInt32("State", 1);
                         return RedirectToAction("MaintenanceStatus_User", "StatusSetting");
                     }
                 }
