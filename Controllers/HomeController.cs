@@ -39,7 +39,15 @@ namespace WebCrawler.Controllers
                     HttpContext.Session.SetInt32("UserId", Check.UId);
                     HttpContext.Session.SetString("UserName", Check.UName);
                     @ViewBag.complete = "登入成功";
-                    return RedirectToAction("Index", "Backend");
+                    var n = DB.Managers.Where(x => x.Account == "admin").FirstOrDefault();
+                    if (n.State == 0)
+                    {
+                        return RedirectToAction("Index", "Backend");
+                    }
+                    else
+                    {
+                        return RedirectToAction("MaintenanceStatus_User", "StatusSetting");
+                    }
                 }
             }
             @ViewBag.complete = "登入失敗";

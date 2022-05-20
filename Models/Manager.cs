@@ -9,5 +9,6 @@ namespace WebCrawler.Models
         public string? Account { get; set; }
         public string? MPassword { get; set; }
         public string? MName { get; set; }
+        public int State { get; set; }
     }
 }
