@@ -53,10 +53,10 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
-            var script = @"C:\Users\李培聖\Desktop\Crawler\WebCrawler\Detect.py";
+            var script = @"Detect.py";
             var id = (int)HttpContext.Session.GetInt32("UserId");
             //var end = "10";
 
