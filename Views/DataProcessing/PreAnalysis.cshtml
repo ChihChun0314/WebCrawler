@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "檢測結果";
-    string[] Tableheaders = new string[] {"ID", "Content"
-      ,"URL"
-      ,"Web_name" };
+    string[] Tableheaders = new string[] {"自訂名稱", "網址"
+      ,"日期"
+      ,"處理前資料" };
 }
 
 <head>
@@ -40,10 +40,10 @@
                     foreach(var Data in Model)
                     {
                         <tr>
-                            <td>@Data.CId</td>
-                            <td>@Data.Content</td>
-                            <td>@Data.Url</td>
                             <td>@Data.WebName</td>
+                            <td>@Data.Url</td>
+                            <td>@Data.Time</td>
+                            <td>@Data.Content</td>
                         </tr>
                     }
                 }

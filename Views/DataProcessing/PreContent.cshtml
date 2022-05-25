@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "分析結果";
+﻿@model WebCrawler.Models.PostAnalysis
+
+@{
+    ViewData["Title"] = "處理前";
     string[] Tableheaders = new string[] {"自訂名稱", "網址"
       ,"日期"
-      ,"處理後資料" };
+      ,"處理前資料" };
 }
 
 <head>
@@ -34,23 +36,23 @@
         </thead>
 
         <tbody>
-            @{
-                if (Model != null)
-                {
-                    foreach(var Data in Model)
-                    {
-                        <tr>
-                            <td>@Data.WebName</td>
-                            <td>@Data.Url</td>
-                            <td>@Data.Time</td>
-                            <td>@Data.PostContent</td>
-                        </tr>
-                    }
-                }
-            }
+
+            <tr>
+                <td>@Html.DisplayFor(i=>i.WebName)</td>
+                <td>@Html.DisplayFor(i=>i.Url)</td>
+                <td>@Html.DisplayFor(i=>i.Time)</td>
+                <td>@Html.DisplayFor(i=>i.PreContent)</td>
+            </tr>
+
         </tbody>
     </table>
 
+</div>
+<div>
+    <form asp-action='UserRecords'>  
+        <input type="submit" style="margin-top: 10px;" value="返回" />
+    </form>
+    <div></div>
 </div>
 
 <script type="text/javascript">
