@@ -19,6 +19,10 @@ namespace WebCrawler.Controllers
         {
             return View();
         }
+        public IActionResult about()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Login_Check(string Email,string Password)
         {
