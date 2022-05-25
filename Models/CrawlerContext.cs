@@ -42,9 +42,7 @@ namespace WebCrawler.Models
 
                 entity.ToTable("Analysis");
 
-                entity.Property(e => e.AId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("A_ID");
+                entity.Property(e => e.AId).HasColumnName("A_ID");
 
                 entity.Property(e => e.CId).HasColumnName("C_ID");
 
@@ -74,9 +72,7 @@ namespace WebCrawler.Models
 
                 entity.ToTable("Crawler");
 
-                entity.Property(e => e.CId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("C_ID");
+                entity.Property(e => e.CId).HasColumnName("C_ID");
 
                 entity.Property(e => e.Content).HasColumnType("text");
 
@@ -85,7 +81,7 @@ namespace WebCrawler.Models
                 entity.Property(e => e.UId).HasColumnName("U_ID");
 
                 entity.Property(e => e.Url)
-                    .HasColumnType("text")
+                    .IsUnicode(false)
                     .HasColumnName("URL");
 
                 entity.Property(e => e.WebName)

@@ -223,5 +223,136 @@ namespace WebCrawler.Controllers
             }
             
         }
+        
+        public async Task<IActionResult> Analysis_Manage()
+        {
+            List<Analysis_User> analysis = new List<Analysis_User>();
+            var content = from Analyses in DB.Analyses
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          select new { Users, Crawler, Analyses };
+            var ma = await content.ToListAsync();
+            foreach (var odj in ma)
+            {
+                analysis.Add(new Analysis_User()
+                {
+                    UId = odj.Users.UId,
+                    AId = odj.Analyses.AId,
+                    UEmail = odj.Users.UEmail,
+                    UPassword = odj.Users.UPassword,
+                    UName = odj.Users.UName,
+                    CId = odj.Crawler.CId,
+                    TId = odj.Analyses.TId,
+                    Content = odj.Analyses.Content,
+                    Url = odj.Crawler.Url,
+                    WebName = odj.Crawler.WebName
+                });
+            }
+            return View(analysis);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Analysis_Manage(string UEmail, string WebName, string Url)
+        {
+
+            List<Analysis_User> analysis = new List<Analysis_User>();
+            var content = from Analyses in DB.Analyses
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          select new { Users, Crawler, Analyses };
+            if (UEmail!=null&&WebName!=null&&Url!=null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Users.UEmail == UEmail && Crawler.WebName == WebName && Crawler.Url == Url
+                              select new { Users, Crawler, Analyses };
+               
+            }else if (UEmail != null && WebName != null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Users.UEmail == UEmail && Crawler.WebName == WebName
+                              select new { Users, Crawler, Analyses };
+            }else if (WebName != null && Url != null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Crawler.WebName == WebName && Crawler.Url == Url
+                              select new { Users, Crawler, Analyses };
+            }
+            else if (UEmail != null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Users.UEmail == UEmail
+                              select new { Users, Crawler, Analyses };
+            }
+            else if (WebName != null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Crawler.WebName == WebName
+                              select new { Users, Crawler, Analyses };
+            }
+            else if (Url != null)
+            {
+                content = from Analyses in DB.Analyses
+                              join Crawler in DB.Crawlers
+                              on Analyses.CId equals Crawler.CId
+                              join Users in DB.Users
+                              on Crawler.UId equals Users.UId
+                              where Crawler.Url == Url
+                              select new { Users, Crawler, Analyses };
+            }
+            var ma = await content.ToListAsync();
+            foreach (var odj in ma)
+            {
+                analysis.Add(new Analysis_User()
+                {
+                    UId = odj.Users.UId,
+                    AId = odj.Analyses.AId,
+                    UEmail = odj.Users.UEmail,
+                    UPassword = odj.Users.UPassword,
+                    UName = odj.Users.UName,
+                    CId = odj.Crawler.CId,
+                    TId = odj.Analyses.TId,
+                    Content = odj.Analyses.Content,
+                    Url = odj.Crawler.Url,
+                    WebName = odj.Crawler.WebName
+                });
+            }
+            if(analysis.Count > 0)
+            {
+                return View(analysis);
+                
+            }
+            else
+            {
+                return Redirect("Analysis_Manage");
+            }
+        }
+        //public async Task<ActionResult> Analysis_Delete(int id)
+        //{
+        //    var a = DB.Analyses.Where(x => x.AId == id).First();
+        //    return Redirect("Analysis_Manage");
+        //}
     }
 }
