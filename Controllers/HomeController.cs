@@ -72,11 +72,11 @@ namespace WebCrawler.Controllers
         [HttpPost]
         public async Task<IActionResult> Register_Join(string UEmail,[Bind("UName,UEmail,UPassword,PhoneNumber")]User user)
         {
-            if (DB.Users.Where(x => x.UEmail == UEmail).First() == null)
+            if (DB.Users.Where(x => x.UEmail == UEmail).FirstOrDefault() == null)
             {
                 if (user.UEmail != null && user.UName != null && user.UPassword != null)
                 {
-                    user.Permission = "user";
+                    user.Permission = "Z";
                     DB.Add(user);
                     await DB.SaveChangesAsync();
                     @ViewBag.complete = "註冊成功";
