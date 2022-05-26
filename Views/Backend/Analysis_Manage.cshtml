@@ -1,39 +1,25 @@
 ﻿@model IEnumerable<WebCrawler.Models.Analysis_User>
-
 @{
     ViewData["Title"] = "檢測紀錄";
 }
-
 <body>
     <div class="container text-center" style="margin-top: 0px;">
         <div class="row">
-            
             <div class="col-12" id="a">
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header text-s">
                             <form asp-action="Analysis_Manage">                                  
                                     <input class="form-control" type="text" name="UEmail" placeholder="請輸入UserEmail">
-                                    @*<input class="form-control" style="margin-top: 10px;" type="text" name="Id" placeholder="請輸入UserID">*@
                                     <input class="form-control" type="text" name="WebName" placeholder="請輸入標題">
-
                                     <input class="form-control" type="text" name="Url" placeholder="請輸入網址">
-                                    <!---
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Per" placeholder="請輸入權限代碼">
-                                    -->
-                                    <br />
-                                    <!----
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Year" placeholder="請輸入年" >
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Month" placeholder="請輸入月" >
-                                    <input class="form-control" style="margin-top: 10px;" type="text" name="Day" placeholder="請輸入日" >
-                                    -->
-                                    <br />
+                                    <br /><br />
                                     <input type="submit" value="查詢" class="btn btn-secondary barbtn">
                             </form>
                         </div>
                     </div>
                 </div>
- <!----------------------------------------------------------------------------------------------------->           
+ <!-----------------------------------------------------------------------------------------------------> 
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -51,16 +37,18 @@
                             <tr>
                                 <td>@obj.UName</td>
                                 <td>@obj.WebName</td>
-                                @*<td>@obj.PhoneNumber</td>*@
                                 <td>@obj.Url</td>
                                 <td><a asp-action="Analysis_Content" asp-route-id="@obj.AId"class="btn btn-primary" >詳細資料</a></td>
-                                
-                                @*<td><a asp-controller="Analysis" asp-action="Analysis_Delete" asp-route-id="@obj.AId" class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a></td>*@
 			                </tr>
                         }
                     </tbody>
                 </table>
-            
+                @if (Model.Any()==false)
+                {
+                    <div class="alert alert-secondary" role="alert">
+                        <p class="h4">目前無檢測紀錄</p>
+                    </div>
+                }
             </div>  
         </div>
     </div>

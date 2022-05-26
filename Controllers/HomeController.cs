@@ -42,6 +42,7 @@ namespace WebCrawler.Controllers
                 {
                     HttpContext.Session.SetInt32("UserId", Check.UId);
                     HttpContext.Session.SetString("UserName", Check.UName);
+                    HttpContext.Session.SetString("Permission", Check.Permission);
                     @ViewBag.complete = "登入成功";
                     var n = DB.Managers.Where(x => x.Account == "admin").FirstOrDefault();
                     if (n.State == 0)
@@ -99,6 +100,8 @@ namespace WebCrawler.Controllers
         {
             HttpContext.Session.Remove("UserId");
             HttpContext.Session.Remove("admin");
+            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("Permission");
             return RedirectToAction("Login");
         }
 

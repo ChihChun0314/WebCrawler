@@ -85,15 +85,46 @@
                 <li>
                     <a class="sidebar" asp-controller='Backend' asp-action='Message'>通知訊息</a>
                 </li>
-                <li>
-                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='SetInterval'>定期檢測設定</a>
-                </li>
-                <li>
-                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='UserRecords' >個人紀錄</a>
-                </li>
-                <li>
-                    <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='Detect'>網頁檢測</a>
-                </li>
+                @if (Context.Session.GetString("Permission")=="A" || Context.Session.GetString("Permission")=="B")
+                {
+                    <li>
+                        <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='SetInterval'>定期檢測設定</a>
+                    </li>
+                    <li>
+                        <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='UserRecords' >個人紀錄</a>
+                    </li>
+                    <li>
+                        <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='Detect'>網頁檢測</a>
+                        </li>
+                }
+                else
+                {
+                    <li>
+                        <a class='sidebar' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">定期檢測設定</a>
+                    </li>
+                    <li>
+                        <a class='sidebar' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">個人紀錄</a>
+                    </li>
+                    <li>
+                        <a class='sidebar' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">網頁檢測</a>
+                    </li>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:black">權限不足</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body" style="color:black">
+                            請通知本網站系統人員開通權限，並等待通知訊息
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                }
             </ul>
             
         </nav>
