@@ -23,6 +23,7 @@ namespace WebCrawler.Controllers
         List<User> userinfo = new List<User>();
         List<Crawler> crawlerinfo = new List<Crawler>();
         List<PostAnalysis> postinfo = new List<PostAnalysis>();
+        List<PostAnalysis> PAnalysis = new List<PostAnalysis>();
 
         public IActionResult SetInterval()
         {
@@ -196,16 +197,21 @@ namespace WebCrawler.Controllers
 
         public async Task<IActionResult> UserRecords()
         {
-            List<PostAnalysis> PostAnalysis = new List<PostAnalysis>();
+            if (PAnalysis.Count > 0)
+            {
+                PAnalysis.Clear();
+            }
+            int id = (int)HttpContext.Session.GetInt32("UserId");
             var message = from Crawler in DB.Crawlers
                           join Analysis in DB.Analyses
                           on Crawler.CId equals Analysis.CId
+                          where Crawler.UId == id
                           select new { Crawler, Analysis };
             var ms = await message.ToListAsync();
             ms.Reverse();
             foreach (var odj in ms)
             {
-                PostAnalysis.Add(new PostAnalysis()
+                PAnalysis.Add(new PostAnalysis()
                 {
                     AId = odj.Analysis.AId,
                     CId = odj.Crawler.CId,
@@ -217,7 +223,7 @@ namespace WebCrawler.Controllers
                     WebName = odj.Crawler.WebName
                 });
             }
-            return View(PostAnalysis);
+            return View(PAnalysis);
         }
 
         public async Task<IActionResult> PreContent(int id)
