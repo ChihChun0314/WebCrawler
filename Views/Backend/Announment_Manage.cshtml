@@ -15,12 +15,6 @@
         </div>
     </div>
     <div class="card-body">
-        
-        @*<div class="row mb-3">
-             <div class="col-3"><h5>標題</h5></div>
-             <div class="col-5"><h5>內容</h5></div>
-             <div class="col-4"><h5>選項</h5></div>
-        </div>*@
         <table class="table">
             <thead>
                 <th scope="col">標題</th>
@@ -28,6 +22,12 @@
                 <th scope="col">選項</th>
             </thead>
             <tbody>
+                @if (Model.Any()==false)
+                {
+                    <div class="alert alert-secondary" role="alert">
+                        <p class="h4">目前無公告</p>
+                    </div>
+                }
                 @foreach(var i in Model)
                 {
                     <tr>

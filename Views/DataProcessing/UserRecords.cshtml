@@ -19,6 +19,12 @@
                 <th scope="col">查看</th>
             </thead>
             <tbody>
+                @if (Model.Any()==false)
+                {
+                    <div class="alert alert-secondary" role="alert">
+                        <p class="h4">目前無檢測紀錄</p>
+                    </div>
+                }
                 @{ var total = 1; }
                 @foreach(var i in Model)
                 {
