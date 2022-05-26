@@ -42,8 +42,7 @@
                             <th scope="col">WebName</th>
                             @*<th scope="col">Phone</th>*@
                             <th scope="col">URL</th>
-                            <th scope="col">content</th>
-                            <th scope="col"></th>
+                            <th scope="col">選項</th>
 		                </tr>
 	                </thead>
                     <tbody>
@@ -54,7 +53,7 @@
                                 <td>@obj.WebName</td>
                                 @*<td>@obj.PhoneNumber</td>*@
                                 <td>@obj.Url</td>
-                                <td>@obj.Content</td>
+                                <td><a asp-action="Analysis_Content" asp-route-id="@obj.AId"class="btn btn-primary" >詳細資料</a></td>
                                 
                                 @*<td><a asp-controller="Analysis" asp-action="Analysis_Delete" asp-route-id="@obj.AId" class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a></td>*@
 			                </tr>

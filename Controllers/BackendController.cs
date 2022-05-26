@@ -354,5 +354,38 @@ namespace WebCrawler.Controllers
         //    var a = DB.Analyses.Where(x => x.AId == id).First();
         //    return Redirect("Analysis_Manage");
         //}
+
+        public async Task<IActionResult> Analysis_Content(int id)
+        {
+            Analysis_User a = new Analysis_User();
+            var content = from Analyses in DB.Analyses
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Analyses.AId == id
+                          select new { Users, Crawler, Analyses };
+            var odj = await content.FirstOrDefaultAsync();
+            if(odj != null)
+            {
+                a.UId = odj.Users.UId;
+                a.AId = odj.Analyses.AId;
+                a.UEmail = odj.Users.UEmail;
+                a.UPassword = odj.Users.UPassword;
+                a.UName = odj.Users.UName;
+                a.CId = odj.Crawler.CId;
+                a.TId = odj.Analyses.TId;
+                a.Content = odj.Analyses.Content;
+                a.WContent = odj.Crawler.Content;
+                a.Url = odj.Crawler.Url;
+                a.Time = odj.Crawler.Time;
+                a.WebName = odj.Crawler.WebName;
+                return View(a);
+            }
+            else
+            {
+                return Redirect("Analysis_Manage");
+            }
+        }
     }
 }

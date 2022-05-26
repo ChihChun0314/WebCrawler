@@ -10,7 +10,9 @@
         public int? CId { get; set; }
         public int? TId { get; set; }
         public string? Content { get; set; }
+        public string? WContent { get; set; }
         public string? Url { get; set; }
         public string? WebName { get; set; }
+        public DateTime? Time { get; set; }
     }
 }
