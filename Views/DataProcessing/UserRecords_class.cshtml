@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebCrawler.Models.PostAnalysis>
+<div class="card">
+    <div class="card-header">
+        <h5>個資外洩</h5>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <div class="progress">
+                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">姓名</div>
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">電話</div>
+                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Email</div>
+            </div>
+        </ul>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5>檢測項目</h5>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            
+            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>姓名檢測</a>
+            <br>
+            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>電話檢測</a>
+            <br>
+            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>Email檢測</a>
+            <br>
+            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>地址檢測</a>
+        </ul>
+    </div>
+</div>

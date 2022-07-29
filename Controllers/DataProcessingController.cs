@@ -230,7 +230,7 @@ namespace WebCrawler.Controllers
             }
         }
 
-        public async Task<IActionResult> UserRecords()
+        public async Task<IActionResult> UserRecords_Index()
         {
             if (PAnalysis.Count > 0)
             {
@@ -291,6 +291,11 @@ namespace WebCrawler.Controllers
             PostAnalysis.Url = crawler.Url;
             PostAnalysis.WebName = crawler.WebName;
             return View(PostAnalysis);
+        }
+        public IActionResult UserRecords_class(int id)
+        {
+            TempData["user_id"] = id;
+            return View();
         }
     }
 }
