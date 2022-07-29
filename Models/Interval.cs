@@ -9,5 +9,6 @@ namespace WebCrawler.Models
         public int? UId { get; set; }
         public string? Url { get; set; }
         public string? WebName { get; set; }
+        public DateTime? Next { get; set; }
     }
 }
