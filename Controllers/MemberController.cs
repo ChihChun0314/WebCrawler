@@ -51,7 +51,7 @@ namespace WebCrawler.Controllers
         {
             if (Name == null && Email == null && Per == "請選擇權限")
             {
-                return View("Search_User");
+                return RedirectToAction("Search_User", "Member");
             }
             else
             {
