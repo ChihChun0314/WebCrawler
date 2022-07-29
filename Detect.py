@@ -11,7 +11,7 @@ import jieba.posseg as pseg
 url = sys.argv[1]
 webName = sys.argv[2]
 U_ID = int(sys.argv[3])
-typeID = 1
+typeID = int(sys.argv[4])
 #url = 'http://tw.class.uschoolnet.com/class/?csid=css000000015149&id=memstu&cl=1155125037-7732-6037'
 
 res = requests.get(url)
@@ -38,7 +38,6 @@ blacklist = [
     'script',
     'style'
 
-    # there may be more elements you don't want, such as "style", etc.
 ]
 count = 0
 for t in text:
@@ -71,36 +70,65 @@ def alterWordTagToX(list):
     for x in list:
         jieba.add_word(x, tag='n')
 
-def LoadStopWord():
-    StopWordList = ["暱稱", "國小", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林",]
+def LoadStopWord():稱", "國小", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林", "寶貴"]
+    StopWordList = ["暱
 
     set(StopWordList)
     alterWordTagToX(StopWordList)
 
-cursor = db.cursor()
-sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
-cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
-db.commit()
+phonePattern = '[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3,4}|(\d{4}|[+]886[-\.\s]?\d{3})[-\.\s]??\d{3}[-\.\s]??\d{3}'
 
-cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
-row = cursor.fetchone()
-cid = int(row[0]) # Crawler ID
+if (typeID == 1):
+    cursor = db.cursor()
+    sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
+    db.commit()
 
-LoadStopWord()
-final = []
-names = getAllName(output)
+    cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
+    row = cursor.fetchone()
+    cid = int(row[0]) # Crawler ID
 
-for n in names:
-    if(len(n) == 3 and not n in final):
-        final.append(n)
+    LoadStopWord()
+    final = []
+    names = getAllName(output)
 
-postOutput = ""
-for x in final:
-    postOutput += "{}, ".format(x)
+    for n in names:
+        if(len(n) == 3 and not n in final):
+            final.append(n)
 
-sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
-cursor.execute(sql, (cid, typeID, postOutput))
-db.commit()
+    postOutput = ""
+    for x in final:
+        postOutput += "{}, ".format(x)
+
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput))
+    db.commit()
+else:
+    cursor = db.cursor()
+    sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
+    db.commit()
+
+    cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
+    row = cursor.fetchone()
+    cid = int(row[0]) # Crawler ID
+
+    result = re.findall(phonePattern, output)
+
+    y = []
+
+    for x in result:
+        if(x not in y):
+            y.append(x)
+
+    postOutput = ""
+    for x in y:
+        postOutput += "{}, ".format(x)
+
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput))
+    db.commit()
+
 
 # print(output)
 # print(count)

@@ -58,14 +58,49 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
             var id = (int)HttpContext.Session.GetInt32("UserId");
+            var typeID = 1; // typeId 1 = names
             //var end = "10";
 
-            psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\"";
+            psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\" \"{typeID}\"";
+
+            // 3) Process configuration
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
+
+
+            var process = Process.Start(psi);
+            process.WaitForExit();
+            TempData["urlName"] = urlName;
+            TempData["Url"] = Url;
+            return View("Temp");
+
+        }
+
+        public IActionResult Phone()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult detectPhone(string urlName, string Url)
+        {
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+
+            // 2) Provide script and arguments
+            var script = @"Detect.py";
+            var id = (int)HttpContext.Session.GetInt32("UserId");
+            var typeID = 2; // typeId 2 = phones
+
+            psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\" \"{typeID}\"";
 
             // 3) Process configuration
             psi.UseShellExecute = false;
