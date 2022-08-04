@@ -70,13 +70,13 @@ def alterWordTagToX(list):
     for x in list:
         jieba.add_word(x, tag='n')
 
-def LoadStopWord():稱", "國小", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林", "寶貴"]
-    StopWordList = ["暱
+def LoadStopWord():
+    StopWordList = ["暱稱", "國小", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林", "寶貴"]
 
     set(StopWordList)
     alterWordTagToX(StopWordList)
 
-phonePattern = '[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3,4}|(\d{4}|[+]886[-\.\s]?\d{3})[-\.\s]??\d{3}[-\.\s]??\d{3}'
+phonePattern = r"[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3,4}|(\d{4}|[+]886[-\.\s]?\d{3})[-\.\s]??\d{3}[-\.\s]??\d{3}"
 
 if (typeID == 1):
     cursor = db.cursor()
@@ -113,11 +113,14 @@ else:
     row = cursor.fetchone()
     cid = int(row[0]) # Crawler ID
 
-    result = re.findall(phonePattern, output)
+    Empty_list = []
+    regex_ex = re.finditer(phonePattern, output, re.MULTILINE)
+    for x in regex_ex:
+        Empty_list.append(x.group(0))
 
     y = []
 
-    for x in result:
+    for x in Empty_list:
         if(x not in y):
             y.append(x)
 
