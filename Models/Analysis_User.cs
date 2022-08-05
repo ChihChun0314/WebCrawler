@@ -14,5 +14,6 @@
         public string? Url { get; set; }
         public string? WebName { get; set; }
         public DateTime? Time { get; set; }
+        public int? Count { get; set; }
     }
 }

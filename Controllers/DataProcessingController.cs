@@ -289,7 +289,8 @@ namespace WebCrawler.Controllers
                     PostContent = odj.Analysis.Content,
                     Time = odj.Crawler.Time,
                     Url = odj.Crawler.Url,
-                    WebName = odj.Crawler.WebName
+                    WebName = odj.Crawler.WebName,
+                    Count = odj.Analysis.Count
                 });
             }
             return View(PAnalysis);
@@ -308,6 +309,7 @@ namespace WebCrawler.Controllers
             PostAnalysis.Time = crawler.Time;
             PostAnalysis.Url = crawler.Url;
             PostAnalysis.WebName = crawler.WebName;
+            PostAnalysis.Count = analysis.Count;
             return View(PostAnalysis);
         }
 
@@ -324,6 +326,7 @@ namespace WebCrawler.Controllers
             PostAnalysis.Time = crawler.Time;
             PostAnalysis.Url = crawler.Url;
             PostAnalysis.WebName = crawler.WebName;
+            PostAnalysis.Count = analysis.Count;
             return View(PostAnalysis);
         }
         public IActionResult UserRecords_class(int id)

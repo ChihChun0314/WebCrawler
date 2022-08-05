@@ -81,6 +81,7 @@ phonePattern = r"[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3
 emailPattern = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
 
 if (typeID == 1):
+    cnt = 0
     cursor = db.cursor()
     sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
@@ -101,11 +102,13 @@ if (typeID == 1):
     postOutput = ""
     for x in final:
         postOutput += "{}, ".format(x)
+        cnt += 1
 
-    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
-    cursor.execute(sql, (cid, typeID, postOutput))
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput, cnt))
     db.commit()
 elif(typeID == 2):
+    cnt = 0
     cursor = db.cursor()
     sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
@@ -129,11 +132,13 @@ elif(typeID == 2):
     postOutput = ""
     for x in y:
         postOutput += "{}, ".format(x)
+        cnt += 1
 
-    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
-    cursor.execute(sql, (cid, typeID, postOutput))
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput, cnt))
     db.commit()
 elif(typeID == 3):
+    cnt = 0
     cursor = db.cursor()
     sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
@@ -157,9 +162,10 @@ elif(typeID == 3):
     postOutput = ""
     for x in y:
         postOutput += "{}, ".format(x)
+        cnt += 1
 
-    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
-    cursor.execute(sql, (cid, typeID, postOutput))
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput, cnt))
     db.commit()
 
 

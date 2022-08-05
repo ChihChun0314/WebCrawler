@@ -13,5 +13,6 @@ namespace WebCrawler.Models
         public DateTime? Time { get; set; }
         public string? Url { get; set; }
         public string? WebName { get; set; }
+        public int? Count { get; set; }
     }
 }

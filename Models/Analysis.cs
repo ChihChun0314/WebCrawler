@@ -9,5 +9,6 @@ namespace WebCrawler.Models
         public int? CId { get; set; }
         public int? TId { get; set; }
         public string? Content { get; set; }
+        public int? Count { get; set; }
     }
 }
