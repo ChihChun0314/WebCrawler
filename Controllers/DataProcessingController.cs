@@ -118,6 +118,40 @@ namespace WebCrawler.Controllers
 
         }
 
+        public IActionResult Email()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult detectEmail(string urlName, string Url)
+        {
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+
+            // 2) Provide script and arguments
+            var script = @"Detect.py";
+            var id = (int)HttpContext.Session.GetInt32("UserId");
+            var typeID = 3; // typeId 3 = emails
+
+            psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\" \"{typeID}\"";
+
+            // 3) Process configuration
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
+
+
+            var process = Process.Start(psi);
+            process.WaitForExit();
+            TempData["urlName"] = urlName;
+            TempData["Url"] = Url;
+            return View("Temp");
+
+        }
+
         [HttpPost]
         public IActionResult show()
         {

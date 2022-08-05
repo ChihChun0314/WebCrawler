@@ -78,6 +78,8 @@ def LoadStopWord():
 
 phonePattern = r"[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3,4}|(\d{4}|[+]886[-\.\s]?\d{3})[-\.\s]??\d{3}[-\.\s]??\d{3}"
 
+emailPattern = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
+
 if (typeID == 1):
     cursor = db.cursor()
     sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
@@ -103,7 +105,7 @@ if (typeID == 1):
     sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
     cursor.execute(sql, (cid, typeID, postOutput))
     db.commit()
-else:
+elif(typeID == 2):
     cursor = db.cursor()
     sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
@@ -115,6 +117,34 @@ else:
 
     Empty_list = []
     regex_ex = re.finditer(phonePattern, output, re.MULTILINE)
+    for x in regex_ex:
+        Empty_list.append(x.group(0))
+
+    y = []
+
+    for x in Empty_list:
+        if(x not in y):
+            y.append(x)
+
+    postOutput = ""
+    for x in y:
+        postOutput += "{}, ".format(x)
+
+    sql = "INSERT INTO Analysis (C_ID, T_ID, Content) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (cid, typeID, postOutput))
+    db.commit()
+elif(typeID == 3):
+    cursor = db.cursor()
+    sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
+    db.commit()
+
+    cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
+    row = cursor.fetchone()
+    cid = int(row[0]) # Crawler ID
+
+    Empty_list = []
+    regex_ex = re.finditer(emailPattern, output, re.MULTILINE)
     for x in regex_ex:
         Empty_list.append(x.group(0))
 
