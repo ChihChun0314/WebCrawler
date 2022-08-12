@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WebCrawler.Models;
 
@@ -13,6 +14,7 @@ namespace WebCrawler.Controllers
             DB = _DB;
 
         }
+
         public IActionResult SetInterval()
         {
             return View();
@@ -139,5 +141,59 @@ namespace WebCrawler.Controllers
             return RedirectToAction("Run_Interval", "interval", interval);
 
         }
+        public async Task<IActionResult> User_Interval()
+        {
+            var User = HttpContext.Session.GetInt32("UserId");
+            var User_Interval = await DB.Intervals.Where(x => x.UId == User).ToListAsync();
+            return View(User_Interval);
+        }
+
+        public IActionResult User_Interval_Edit(int id)
+        {
+            Interval interval1 = new Interval();
+            interval1 = DB.Intervals.Where(x => x.IId == id).FirstOrDefault();
+            return View(interval1);
+        }
+
+        public async Task<IActionResult> User_Interval_Edit_Run( [Bind("IId,WebName,Url,Day")] Interval interval)
+        {
+            try
+            {
+                switch (interval.Day)
+                {
+                    case 1:
+                        interval.Next = DateTime.Now.AddDays(1);
+                        break ;
+                    case 2:
+                        interval.Next = DateTime.Now.AddDays(7);
+                        break;
+                    case 3:
+                        interval.Next = DateTime.Now.AddMonths(1);
+                        break;
+                    case 4:
+                        interval.Next = DateTime.Now.AddYears(1);
+                        break;
+                }   
+                interval.UId = HttpContext.Session.GetInt32("UserId");
+                DB.Update(interval);
+                await DB.SaveChangesAsync();
+                return RedirectToAction("User_Interval", "interval"); ;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                ViewBag.EditError = "修改失敗";
+                return RedirectToAction("User_Interval", "interval");
+            }
+        }
+
+        public async Task<IActionResult> User_Interval_del(int id)
+        {
+            var message = await DB.Intervals.Where(x => x.IId == id).FirstAsync();
+            DB.Intervals.Remove(message);
+            DB.SaveChanges();
+       
+            return RedirectToAction("User_Interval", "interval" );
+        }
+        
     }
 }
