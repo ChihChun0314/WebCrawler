@@ -38,7 +38,8 @@
                                 <td>@obj.UName</td>
                                 <td>@obj.WebName</td>
                                 <td>@obj.Url</td>
-                                <td><a asp-action="Analysis_Content" asp-route-id="@obj.AId"class="btn btn-primary" >詳細資料</a></td>
+                                @*<td><a asp-action="Analysis_Content" asp-route-id="@obj.AId"class="btn btn-primary" >詳細資料</a></td>*@
+                                <td><a asp-controller='DataProcessing' asp-action="UserRecords_class" asp-route-id="@obj.AId"class="btn btn-primary" >詳細資料</a></td>
 			                </tr>
                         }
                     </tbody>
