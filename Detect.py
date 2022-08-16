@@ -23,7 +23,8 @@ html_page = res.content
 soup = BeautifulSoup(html_page, 'html.parser')
 text = soup.find_all(text=True)
     
-db = pymssql.connect(
+# connection info
+db = pymssql.connect( 
     host='127.0.0.1',
     user='sa',
     password = 'pat900518',
@@ -51,7 +52,7 @@ for t in text:
         output += '{} '.format(text)
         count += 1
 
-#詞性標註，nr為人名
+#decides the flag
 def getFirstName(messageContent):
     words = pseg.cut(messageContent)
     for word, flag in words:
@@ -65,17 +66,17 @@ def getAllName(messageContent):
     names = []
     for word, flag in words:
         # print('%s,%s' %(word,flag))
-        if flag == 'nr':#人名詞性為nr
+        if flag == 'nr':#nr means people's name
             names.append(word)
     return names
 
-#修改停用詞集合中所有詞性為名詞，大部分為名詞
+
 def alterWordTagToX(list):
     for x in list:
         jieba.add_word(x, tag='n')
 
 def LoadStopWord():
-    StopWordList = ["暱稱", "國小", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林", "寶貴", "關於"]
+    StopWordList = ["暱稱", "國小", "國中", "幼兒", "詳細資料", "博士班", "智慧型", "國立", "科技", "大學", "雲林", "寶貴", "關於", "路", "仁愛", "德信"]
 
     set(StopWordList)
     alterWordTagToX(StopWordList)
@@ -85,41 +86,26 @@ phonePattern = r"[(]?([+]886[-\.\s]?[2-8]|0[2-8])[)]?[-\.\s]?\d{3,4}[-\.\s]?\d{3
 emailPattern = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
 
 def func(value):
-    return ''.join(value.splitlines())
-
-city = [
-    u'台北市', u'新北市', u'基隆市', u'宜蘭縣',
-    u'新竹市', u'新竹縣', u'桃園市', u'苗栗縣',
-    u'台中市', u'彰化縣', u'南投縣', u'雲林縣',
-    u'嘉義市', u'嘉義縣', u'台南市', u'高雄市',
-    u'屏東縣', u'台東縣', u'花蓮縣', u'澎湖縣',
-    u'金門縣', u'連江縣'
-]
-other_city = [
-    u'台北縣', u'高雄縣', u'臺北市', u'臺北縣',
-    u'台中縣', u'臺中市', u'臺中縣'
-]
-chinese_digit = [
-    u'一', u'二', u'三', u'四', u'五',
-    u'六', u'七', u'八', u'九', u'十'
-]
+    return ''.join(value.splitlines()) # remove space
 
 
 def extract_address(txt):
-    addr_main = u'[%s?]\w+?[路|街|鄰]\w*?\s?\d{1,6}\s?號|\w+\s?號' % '|'.join(city + other_city)
-    addr_optional = u'(?:\d{1,5}樓|\d+(?:、\d+){0,2}樓|\w+樓)?(?:\d{1,3}室\w+室)?(?:[\-|之]\d{1,2}\w)?'
-    pattern = addr_main + addr_optional
-    return re.findall(pattern, txt, re.UNICODE)
 
+    pattern = r"([^\d\s][^\d\s][縣市])[\s]?(\d{1,3}|\d{1,5}|\d{1,3}[-]\d{1,3})?[\s]?(\D{2,9}?(市區|鎮區|鎮市|[鄉鎮市區]))?(\D{2,9}?[路街])[\s]?((\d+?|\D{1,2})[\s]?[段])?[\s]?((\d+?|\D{1,2})[\s]?[巷])?[\s]?(\d+?[弄])?[\s]?((\d+|\D{1,3})[\s]?[號])([\s]?(\d+?|\D{1,3}|\d+(、\d+){0,5})[\s]?[樓])?[\s]?([之][\s]?(\d+?|\D{1,3}))?"
+    return re.finditer(pattern, txt, re.MULTILINE)
+
+# creates crawler info
 cursor = db.cursor()
 sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
 cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
 db.commit()
 
+# fetches cid from new crawler info in DB
 cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
 row = cursor.fetchone()
 cid = int(row[0]) # Crawler ID
 
+# searches for names, phones, email addresses and physical addresses
 for typeID in range(1, 5):
     if (typeID == 1):
         cnt = 0
@@ -128,6 +114,7 @@ for typeID in range(1, 5):
         final = []
         names = getAllName(output)
 
+        # check if the object is already in list and length is equal to 3
         for n in names:
             if(len(n) == 3 and not n in final):
                 final.append(n)
@@ -136,7 +123,9 @@ for typeID in range(1, 5):
         for x in final:
             postOutput += "{}, ".format(x)
             cnt += 1
-
+        
+        # removes last 2 characters from postOutput string ", "
+        postOutput = postOutput[:-2] 
         sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (cid, typeID, postOutput, cnt))
         db.commit()
@@ -149,7 +138,7 @@ for typeID in range(1, 5):
             Empty_list.append(x.group(0))
 
         y = []
-
+        # check if the object is already in list 
         for x in Empty_list:
             if(x not in y):
                 y.append(x)
@@ -159,6 +148,8 @@ for typeID in range(1, 5):
             postOutput += "{}, ".format(x)
             cnt += 1
 
+        # removes last 2 characters from postOutput string ", "
+        postOutput = postOutput[:-2]
         sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (cid, typeID, postOutput, cnt))
         db.commit()
@@ -171,7 +162,7 @@ for typeID in range(1, 5):
             Empty_list.append(x.group(0))
 
         y = []
-
+        # check if the object is already in list 
         for x in Empty_list:
             if(x not in y):
                 y.append(x)
@@ -181,33 +172,48 @@ for typeID in range(1, 5):
             postOutput += "{}, ".format(x)
             cnt += 1
 
+        # removes last 2 characters from postOutput string ", "
+        postOutput = postOutput[:-2]
         sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (cid, typeID, postOutput, cnt))
         db.commit()
     elif(typeID == 4):
         cnt = 0
 
+        #removes whitespaces and newlines
         out = func(output)
-        out.translate(dict.fromkeys(map(ord, whitespace)))
+        out.translate(dict.fromkeys(map(ord, whitespace))) 
         out.replace("\\n","")
         out.replace("\\\n","")
         out.replace("\\\\n","")
 
         res = extract_address(out)
-        reg = re.compile(r'[a-zA-Z]')
 
-        y = []
-
-        for x in res:
+        '''
+        for x in res: # old regex
             if(x not in y and len(x) > 8 and not reg.match(x) and ((any(char.isdigit() for char in x)) or any(i in x for i in chinese_digit)) and not re.search('[a-zA-Z]', x) and re.search('\w{2}[縣|市|區|鄉]', x)):
                 x = re.sub('^[0-9]+', "", x)
                 y.append(x)
+        '''
+
+        Empty_list = []
+        for x in res:
+            Empty_list.append(x.group(0))
+
+        y = []
+        # check if the object is already in list and length is greater or equal than 8
+        for x in Empty_list:
+            if(len(x) >= 8 and x not in y):
+                y.append(x.replace(' ', ''))
+
 
         postOutput = ""
         for x in y:
             postOutput += "{}, ".format(x)
             cnt += 1
 
+        # removes last 2 characters from postOutput string ", "
+        postOutput = postOutput[:-2]
         sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (cid, typeID, postOutput, cnt))
         db.commit()
