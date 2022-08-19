@@ -58,7 +58,7 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -210,20 +210,27 @@ namespace WebCrawler.Controllers
                           select new { Crawler, Analysis };
             var ms = await message.ToListAsync();
             ms.Reverse();
+            var qq = 1;
             foreach (var odj in ms)
             {
-                PAnalysis.Add(new PostAnalysis()
+                if (qq != odj.Crawler.CId)
                 {
-                    AId = odj.Analysis.AId,
-                    CId = odj.Crawler.CId,
-                    TId = odj.Analysis.TId,
-                    PreContent = odj.Crawler.Content,
-                    PostContent = odj.Analysis.Content,
-                    Time = odj.Crawler.Time,
-                    Url = odj.Crawler.Url,
-                    WebName = odj.Crawler.WebName,
-                    Count = odj.Analysis.Count
-                });
+                    qq = odj.Crawler.CId;
+
+                    PAnalysis.Add(new PostAnalysis()
+                    {
+                        AId = odj.Analysis.AId,
+                        CId = odj.Crawler.CId,
+                        TId = odj.Analysis.TId,
+                        PreContent = odj.Crawler.Content,
+                        PostContent = odj.Analysis.Content,
+                        Time = odj.Crawler.Time,
+                        Url = odj.Crawler.Url,
+                        WebName = odj.Crawler.WebName,
+                        Count = odj.Analysis.Count
+                    });
+                }
+
             }
             return View(PAnalysis);
         }
@@ -261,10 +268,39 @@ namespace WebCrawler.Controllers
             PostAnalysis.Count = analysis.Count;
             return View(PostAnalysis);
         }
-        public IActionResult UserRecords_class(int id)
+        public async Task<IActionResult> UserRecords_class(int id)
         {
+            var name = await DB.Analyses.Where(x => x.CId == id && x.TId == 1).FirstOrDefaultAsync();
+            var phone = await DB.Analyses.Where(x => x.CId == id && x.TId == 2).FirstOrDefaultAsync();
+            var email = await DB.Analyses.Where(x => x.CId == id && x.TId == 3).FirstOrDefaultAsync();
+            var address = await DB.Analyses.Where(x => x.CId == id && x.TId == 4).FirstOrDefaultAsync();
+            Statistics Statistics_data = new Statistics();
+            if (name != null || phone != null || email != null || address != null)
+            {
+                Statistics_data.name = (int)name.Count;
+                Statistics_data.phone = (int)phone.Count;
+                Statistics_data.email = (int)email.Count;
+                Statistics_data.address = (int)address.Count;
+
+                TempData["name_count"] = name.Count;
+                TempData["phone_count"] = phone.Count;
+                TempData["email_count"] = email.Count;
+                TempData["address_count"] = address.Count;
+
+                TempData["name_id"] = (int)name.AId;
+                TempData["phone_id"] = (int)phone.AId;
+                TempData["email_id"] = (int)email.AId;
+                TempData["address_id"] = (int)address.AId;
+            }
+            else
+            {
+                Statistics_data.name = id;
+                Statistics_data.phone = id;
+                Statistics_data.email = id;
+                Statistics_data.address = id;
+            }
             TempData["user_id"] = id;
-            return View();
+            return View(Statistics_data);
         }
     }
 }

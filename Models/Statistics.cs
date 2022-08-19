@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+namespace WebCrawler.Models
+{
+    public class Statistics
+    {
+        public int name { get; set; }
+        public int phone { get; set; }
+        public int email { get; set; }
+        public int address { get; set; }
+    }
+}

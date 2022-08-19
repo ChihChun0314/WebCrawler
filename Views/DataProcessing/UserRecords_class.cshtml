@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebCrawler.Models.PostAnalysis>
+﻿@model WebCrawler.Models.Statistics
+
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['bar']});
@@ -7,10 +9,10 @@
   function drawStuff() {
     var data = new google.visualization.arrayToDataTable([
       ['偵測類別', '數量'],
-      ["姓名", 44],
-      ["Email", 31],
-      ["電話", 12],
-      ["地址", 10]
+      ["姓名", @Html.DisplayFor(i=>i.name)],
+      ["Email", @Html.DisplayFor(i=>i.email)],
+      ["電話", @Html.DisplayFor(i=>i.phone)],
+      ["地址", @Html.DisplayFor(i=>i.address)]
     ]);
 
     var options = {
@@ -45,18 +47,33 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h5>檢測項目</h5>
+        <h5>檢測資料</h5>
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">
+            @if(TempData["name_count"]!=null || TempData["email_count"]!=null || TempData["phone_count"]!=null || TempData["address_count"] != null)
+            {
+                @if (TempData["name_count"].ToString() != "0")
+                {
+                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["name_id"]>姓名檢測</a>
+                    <br>
+                }
+                @if (TempData["email_count"].ToString() != "0")
+                {
+                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["email_id"]>Email檢測</a>
+                    <br>
+                }
+                @if (TempData["phone_count"].ToString() != "0")
+                {
+                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["phone_id"]>電話檢測</a>
+                    <br>
+                }   
+                @if (TempData["address_count"].ToString() != "0")
+                {
+                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["address_id"]>地址檢測</a>
+                }
+            }
             
-            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>姓名檢測</a>
-            <br>
-            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>電話檢測</a>
-            <br>
-            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>Email檢測</a>
-            <br>
-            <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["user_id"]>地址檢測</a>
         </ul>
     </div>
 </div>
