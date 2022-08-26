@@ -77,7 +77,15 @@
     </table>
 </div>
 <div>
-    <form asp-action='UserRecords_Index'>  
-        <input type="submit" class="btn btn-primary" style="margin-top: 10px;" value="返回檢測紀錄" />
-    </form>
+    @if(Context.Session.GetString("admin") == "admin")
+    {
+        <form asp-controller='Backend' asp-action='Analysis_Manage'>  
+            <input type="submit" class="btn btn-primary" style="margin-top: 10px;" value="返回檢測資料" />
+        </form>
+    }else{
+        <form asp-action='UserRecords_Index'>  
+            <input type="submit" class="btn btn-primary" style="margin-top: 10px;" value="返回檢測紀錄" />
+        </form>
+    }
+    
 </div>

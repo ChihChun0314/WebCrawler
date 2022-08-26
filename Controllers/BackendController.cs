@@ -36,7 +36,7 @@ namespace WebCrawler.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            
+
         }
 
         public async Task<IActionResult> Announment_Content(int id)
@@ -221,9 +221,9 @@ namespace WebCrawler.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            
+
         }
-        
+
         public async Task<IActionResult> Analysis_Manage()
         {
             List<Analysis_User> analysis = new List<Analysis_User>();
@@ -234,21 +234,29 @@ namespace WebCrawler.Controllers
                           on Crawler.UId equals Users.UId
                           select new { Users, Crawler, Analyses };
             var ma = await content.ToListAsync();
+
+            var qq = 1;
             foreach (var odj in ma)
             {
-                analysis.Add(new Analysis_User()
+                if (qq != odj.Crawler.CId)
                 {
-                    UId = odj.Users.UId,
-                    AId = odj.Analyses.AId,
-                    UEmail = odj.Users.UEmail,
-                    UPassword = odj.Users.UPassword,
-                    UName = odj.Users.UName,
-                    CId = odj.Crawler.CId,
-                    TId = odj.Analyses.TId,
-                    Content = odj.Analyses.Content,
-                    Url = odj.Crawler.Url,
-                    WebName = odj.Crawler.WebName
-                });
+                    qq = odj.Crawler.CId;
+
+                    analysis.Add(new Analysis_User()
+                    {
+                        UId = odj.Users.UId,
+                        AId = odj.Analyses.AId,
+                        UEmail = odj.Users.UEmail,
+                        UPassword = odj.Users.UPassword,
+                        UName = odj.Users.UName,
+                        CId = odj.Crawler.CId,
+                        TId = odj.Analyses.TId,
+                        Content = odj.Analyses.Content,
+                        Url = odj.Crawler.Url,
+                        WebName = odj.Crawler.WebName
+                    });
+                }
+
             }
             return View(analysis);
         }
@@ -263,64 +271,66 @@ namespace WebCrawler.Controllers
                           join Users in DB.Users
                           on Crawler.UId equals Users.UId
                           select new { Users, Crawler, Analyses };
-            if (UEmail!=null&&WebName!=null&&Url!=null)
+            if (UEmail != null && WebName != null && Url != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Users.UEmail == UEmail && Crawler.WebName == WebName && Crawler.Url == Url
-                              select new { Users, Crawler, Analyses };
-               
-            }else if (UEmail != null && WebName != null)
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Users.UEmail == UEmail && Crawler.WebName == WebName && Crawler.Url == Url
+                          select new { Users, Crawler, Analyses };
+
+            }
+            else if (UEmail != null && WebName != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Users.UEmail == UEmail && Crawler.WebName == WebName
-                              select new { Users, Crawler, Analyses };
-            }else if (WebName != null && Url != null)
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Users.UEmail == UEmail && Crawler.WebName == WebName
+                          select new { Users, Crawler, Analyses };
+            }
+            else if (WebName != null && Url != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Crawler.WebName == WebName && Crawler.Url == Url
-                              select new { Users, Crawler, Analyses };
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Crawler.WebName == WebName && Crawler.Url == Url
+                          select new { Users, Crawler, Analyses };
             }
             else if (UEmail != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Users.UEmail == UEmail
-                              select new { Users, Crawler, Analyses };
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Users.UEmail == UEmail
+                          select new { Users, Crawler, Analyses };
             }
             else if (WebName != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Crawler.WebName == WebName
-                              select new { Users, Crawler, Analyses };
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Crawler.WebName == WebName
+                          select new { Users, Crawler, Analyses };
             }
             else if (Url != null)
             {
                 content = from Analyses in DB.Analyses
-                              join Crawler in DB.Crawlers
-                              on Analyses.CId equals Crawler.CId
-                              join Users in DB.Users
-                              on Crawler.UId equals Users.UId
-                              where Crawler.Url == Url
-                              select new { Users, Crawler, Analyses };
+                          join Crawler in DB.Crawlers
+                          on Analyses.CId equals Crawler.CId
+                          join Users in DB.Users
+                          on Crawler.UId equals Users.UId
+                          where Crawler.Url == Url
+                          select new { Users, Crawler, Analyses };
             }
             var ma = await content.ToListAsync();
             foreach (var odj in ma)
@@ -339,10 +349,10 @@ namespace WebCrawler.Controllers
                     WebName = odj.Crawler.WebName
                 });
             }
-            if(analysis.Count > 0)
+            if (analysis.Count > 0)
             {
                 return View(analysis);
-                
+
             }
             else
             {
@@ -366,7 +376,7 @@ namespace WebCrawler.Controllers
                           where Analyses.AId == id
                           select new { Users, Crawler, Analyses };
             var odj = await content.FirstOrDefaultAsync();
-            if(odj != null)
+            if (odj != null)
             {
                 a.UId = odj.Users.UId;
                 a.AId = odj.Analyses.AId;

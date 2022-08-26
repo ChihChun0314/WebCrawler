@@ -88,7 +88,7 @@
                 @if (Context.Session.GetString("Permission")=="A" || Context.Session.GetString("Permission")=="B")
                 {
                     <li>
-                        <a class='sidebar' asp-area='' asp-controller='Interval' asp-action='SetInterval'>定期檢測設定</a>
+                        <a class='sidebar' asp-area='' asp-controller='Interval' asp-action='User_Interval'>定期檢測設定</a>
                     </li>
                     <li>
                         <a class='sidebar' asp-area='' asp-controller='DataProcessing' asp-action='UserRecords_Index' >個人紀錄</a>
