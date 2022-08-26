@@ -22,7 +22,7 @@ namespace WebCrawler.Controllers
         SqlConnection conn = new SqlConnection();
         List<User> userinfo = new List<User>();
         List<Crawler> crawlerinfo = new List<Crawler>();
-        List<PostAnalysis> postinfo = new List<PostAnalysis>();
+        List<PostPreview> postinfo = new List<PostPreview>();
         List<PostAnalysis> PAnalysis = new List<PostAnalysis>();
 
         public IActionResult SetInterval()
@@ -58,7 +58,7 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -139,13 +139,15 @@ namespace WebCrawler.Controllers
                 int id = (int)HttpContext.Session.GetInt32("UserId");
                 conn.Open();
                 com.Connection = conn;
-                com.CommandText = $"SELECT TOP (1) [Time],[Content],[URL],[Web_name] FROM[Crawler].[dbo].[Crawler] WHERE [U_ID]={id} ORDER BY [Time] DESC";
+                com.CommandText = $"SELECT TOP (1) [C_ID],[Time],[Content],[URL],[Web_name] FROM[Crawler].[dbo].[Crawler] WHERE [U_ID]={id} ORDER BY [Time] DESC";
                 //  ORDER BY [Time] DESC
                 dr = com.ExecuteReader();
                 while (dr.Read())
                 {
                     crawlerinfo.Add(new Crawler()
                     {
+                        CId = (int)dr["C_ID"]
+                    ,
                         Time = (DateTime?)dr["Time"]
                     ,
                         Content = dr["Content"].ToString()
@@ -153,6 +155,7 @@ namespace WebCrawler.Controllers
                         Url = dr["URL"].ToString()
                     ,
                         WebName = dr["Web_name"].ToString()
+
                     });
                 }
                 conn.Close();
@@ -166,34 +169,34 @@ namespace WebCrawler.Controllers
 
         private void getPostData()
         {
-            try
-            {
-                int id = (int)HttpContext.Session.GetInt32("UserId");
-                conn.Open();
-                com.Connection = conn;
-                com.CommandText = $"SELECT TOP (1) C.Time, A.Content, C.URL, C.Web_name FROM[Crawler].[dbo].[Analysis] as A INNER JOIN[Crawler].[dbo].[Crawler] as C on A.C_ID = C.C_ID where[U_ID] ={id} ORDER BY [Time] DESC";
-                //  ORDER BY [Time] DESC
-                dr = com.ExecuteReader();
-                while (dr.Read())
-                {
-                    postinfo.Add(new PostAnalysis()
-                    {
-                        Time = (DateTime?)dr["Time"]
-                    ,
-                        PostContent = dr["Content"].ToString()
-                    ,
-                        Url = dr["URL"].ToString()
-                    ,
-                        WebName = dr["Web_name"].ToString()
-                    });
-                }
-                conn.Close();
-            }
-            catch (Exception)
-            {
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            var message = from Crawler in DB.Crawlers
+                          where Crawler.UId == id
+                          select new { Crawler};
+            var ms = message.ToList();
+            ms.Reverse();
 
-                throw;
-            }
+            int cid = ms[0].Crawler.CId;
+            var crawler = DB.Crawlers.Where(x => x.CId == cid).FirstOrDefault();
+            var name = DB.Analyses.Where(x => x.CId == cid && x.TId == 1).FirstOrDefault();
+            var phone = DB.Analyses.Where(x => x.CId == cid && x.TId == 2).FirstOrDefault();
+            var email = DB.Analyses.Where(x => x.CId == cid && x.TId == 3).FirstOrDefault();
+            var address = DB.Analyses.Where(x => x.CId == cid && x.TId == 4).FirstOrDefault();
+
+            postinfo.Add(new PostPreview()
+            {
+                Time = crawler.Time,
+                Url = crawler.Url,
+                WebName = crawler.WebName,
+                Name = name.Content,
+                Phone = phone.Content,
+                Email = email.Content,
+                Address = address.Content
+
+            });
+
+
+
         }
 
         public async Task<IActionResult> UserRecords_Index()
