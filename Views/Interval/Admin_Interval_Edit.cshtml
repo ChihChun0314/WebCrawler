@@ -16,10 +16,11 @@
     </div>
     <div class="card-body">
         <div class="container">
-            <form class="form-check" asp-action="User_Interval_Edit_Run">
+            <form class="form-check" asp-action="Admin_Interval_Edit_Run">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="form-floating">
+                            <input type="hidden" id="UId" name="UId" value=@Html.DisplayFor(i=>i.UId) />
                             <input type="hidden" id="IId" name="IId" value=@Html.DisplayFor(i=>i.IId) />
                             <input type="text" id="title" required="required" placeholder="自訂標題" class="form-control" name="WebName"value=@Html.DisplayFor(i=>i.WebName)>
                             <label for="title">自訂標題:</label>

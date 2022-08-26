@@ -16,7 +16,7 @@
     </div>
     <div class="card-body">
         <div class="container">
-            <form class="form-check" asp-action="Set_Interval">
+            <form class="form-check" asp-action="Admin_Set_Interval">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="form-floating">
@@ -57,12 +57,13 @@
                             <label class="form-check-label" for="t4">
                                 每年
                             </label>
+                            <input type="hidden" value="@ViewBag.id" name="id"/>
                         </div>
                     </div>
                 </div>
                 <br />
                 <input class="btn btn-primary" type="submit" value="確認" />
-                <h5>@ViewBag.interval</h5>
+                <a>@ViewBag.id</a>
             </form>
         </div>
     </div>

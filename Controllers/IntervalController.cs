@@ -53,6 +53,7 @@ namespace WebCrawler.Controllers
             //Content(((date_1 - date_2).TotalMinutes).ToString())
             @ViewBag.interval = "設定成功";
             return View("SetInterval");
+            
         }
 
         public IActionResult Run_Interval()
@@ -148,10 +149,10 @@ namespace WebCrawler.Controllers
             return View(User_Interval);
         }
 
-        public IActionResult User_Interval_Edit(int id)
+        public async Task<IActionResult> User_Interval_Edit(int id)
         {
             Interval interval1 = new Interval();
-            interval1 = DB.Intervals.Where(x => x.IId == id).FirstOrDefault();
+            interval1 = await DB.Intervals.Where(x => x.IId == id).FirstAsync();
             return View(interval1);
         }
 
@@ -191,9 +192,96 @@ namespace WebCrawler.Controllers
             var message = await DB.Intervals.Where(x => x.IId == id).FirstAsync();
             DB.Intervals.Remove(message);
             DB.SaveChanges();
-       
             return RedirectToAction("User_Interval", "interval" );
         }
-        
+        public async Task<IActionResult> Admin_Search_User_interval(int id)
+        {
+            var User = id;
+            var User_Interval = await DB.Intervals.Where(x => x.UId == User).ToListAsync();
+            ViewBag.id = id;
+            return View(User_Interval);
+        }
+        public IActionResult Admin_SetInterval(int id)
+        {
+            ViewBag.id= id;
+            return View();
+        }
+        public async Task<IActionResult> Admin_Set_Interval(int id, string WebName, string Url, int time)
+        {
+            Interval interval = new Interval();
+            DateTime date_1 = new DateTime(2022, 07, 28, 22, 20, 00);
+            DateTime date_3 = DateTime.Now;
+            switch (time)
+            {
+                case 1:
+                    date_3 = date_3.AddDays(1);
+                    break;
+                case 2:
+                    date_3 = date_3.AddDays(7);
+                    break;
+                case 3:
+                    date_3 = date_3.AddMonths(1);
+                    break;
+                case 4:
+                    date_3 = date_3.AddYears(1);
+                    break;
+            }
+            interval.UId = id;
+            interval.WebName = WebName;
+            interval.Url = Url;
+            interval.Next = date_3;
+            interval.Day = time;
+            DB.Add(interval);
+            await DB.SaveChangesAsync();
+
+            //Content(((date_1 - date_2).TotalMinutes).ToString())
+            @ViewBag.interval = "設定成功";
+            return RedirectToAction("Admin_Search_User_interval", "Interval", new { id = id });
+        }
+        public async Task<IActionResult> Admin_Interval_del(int id)
+        {
+            var message = await DB.Intervals.Where(x => x.IId == id).FirstAsync();
+            var i = message.UId;
+            DB.Intervals.Remove(message);
+            DB.SaveChanges();
+            return RedirectToAction("Admin_Search_User_interval", "Interval", new { id = i });
+        }
+        public async Task<IActionResult> Admin_Interval_Edit(int id)
+        {
+            Interval interval1 = new Interval();
+            interval1 = await DB.Intervals.Where(x => x.IId == id).FirstAsync();
+            return View(interval1);
+        }
+
+        public async Task<IActionResult> Admin_Interval_Edit_Run(int UId,[Bind("IId,WebName,Url,Day")] Interval interval)
+        {
+            try
+            {
+                switch (interval.Day)
+                {
+                    case 1:
+                        interval.Next = DateTime.Now.AddDays(1);
+                        break;
+                    case 2:
+                        interval.Next = DateTime.Now.AddDays(7);
+                        break;
+                    case 3:
+                        interval.Next = DateTime.Now.AddMonths(1);
+                        break;
+                    case 4:
+                        interval.Next = DateTime.Now.AddYears(1);
+                        break;
+                }
+                interval.UId = UId;
+                DB.Update(interval);
+                await DB.SaveChangesAsync();
+                return RedirectToAction("Admin_Search_User_interval", "Interval", new { id = UId });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                ViewBag.EditError = "修改失敗";
+                return RedirectToAction("Admin_Search_User_interval", "Interval", new { id = UId });
+            }
+        }
     }
 }
