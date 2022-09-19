@@ -17,6 +17,8 @@ namespace WebCrawler.Controllers
 
         public IActionResult SetInterval()
         {
+            DateTime date = DateTime.Now;
+            TempData["date"] = date;
             return View();
         }
         public async Task<IActionResult> Set_Interval(string WebName,string Url,int time)
@@ -95,7 +97,7 @@ namespace WebCrawler.Controllers
             var psi = new ProcessStartInfo();
             var Url = interval.Url;
             var urlName = interval.WebName;
-            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";

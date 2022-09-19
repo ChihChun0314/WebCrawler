@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "設定掃描頻率";
+    ViewData["Title"] = "新增專案";
 }
 <style type="text/css"> 
    input[type="radio"]{
@@ -12,7 +12,7 @@
         @*<h6 align="right">@Context.Session.GetString("UserName")</h6>*@
     </div>
     <div style="margin-top: 10px;">
-        <h2>設定掃描頻率</h2>
+        <h2>新增專案</h2>
     </div>
     <div class="card-body">
         <div class="container">
@@ -26,13 +26,29 @@
                     </li>
                     <li class="list-group-item">
                         <div class="form-floating">
-                            <input type="text" id="URL" required="required" placeholder="網址" class="form-control"name="Url">
+                            <input type="text" id="URL" required="required" placeholder="網址" class="form-control" name="Url">
                             <label for="URL">網址:</label>
                         </div>
                     </li>
+                    <li class="list-group-item">
+                        <select class="form-select" name="time" aria-label="Default select example">
+                            <option selected>設定頻率</option>
+                            <option value="1">每天(Day)</option>
+                            <option value="2">每周(Week)</option>
+                            <option value="3">每月(Month)</option>
+                            <option value="4">每年(Year)</option>
+                        </select>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-floating">
+                            <input class="form-control" id="TM" type="text" value="@TempData["date"]" required="required" placeholder="時間" readonly>
+                            <label for="TM">現在時間:</label>
+                        </div>
+                    </li>
+                    
                 </ul>
                 <br />
-                <div class="row justify-content-md-center">
+                @*<div class="row justify-content-md-center">
                     <div class="col col-lg-2">
                         <h4 class="h4">頻率</h4>
                     </div>
@@ -59,8 +75,8 @@
                             </label>
                         </div>
                     </div>
-                </div>
-                <br />
+                </div>*@
+                
                 <input class="btn btn-primary" type="submit" value="確認" />
                 <h5>@ViewBag.interval</h5>
             </form>
