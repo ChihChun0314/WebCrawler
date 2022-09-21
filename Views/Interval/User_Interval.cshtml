@@ -47,6 +47,7 @@
                             <span class="d-inline-block text-truncate" style="max-width: 390px;">@a</span>
                         </td>
                         <td>
+                            <a role="button" class="btn btn-success barbtn" asp-action="Data_Processing_run" asp-route-id="@i.IId">執行</a>
                             <a role="button" class="btn btn-success barbtn" asp-action="User_Interval_Edit" asp-route-id="@i.IId">編輯</a>
                             <a role="button" class="btn btn-danger barbtn" asp-action="User_Interval_del" asp-route-id="@i.IId" onclick="return confirm('Are you sure you want to delete this?')" >刪除</a>
                         </td>

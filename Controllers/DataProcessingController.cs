@@ -280,6 +280,7 @@ namespace WebCrawler.Controllers
             Statistics Statistics_data = new Statistics();
             if (name != null || phone != null || email != null || address != null)
             {
+                Statistics_data.CId = id;
                 Statistics_data.name = (int)name.Count;
                 Statistics_data.phone = (int)phone.Count;
                 Statistics_data.email = (int)email.Count;
@@ -311,19 +312,17 @@ namespace WebCrawler.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult export(string CID)
+        public IActionResult export(int id)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"export.py";
-            var id = (int)HttpContext.Session.GetInt32("UserId");
             //var typeID = 1; // typeId 1 = names
             //var end = "10";
 
-            psi.Arguments = $"\"{script}\" \"{CID}\"";
+            psi.Arguments = $"\"{script}\" \"{id}\"";
 
             // 3) Process configuration
             psi.UseShellExecute = false;
