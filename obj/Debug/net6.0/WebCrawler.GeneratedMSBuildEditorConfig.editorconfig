@@ -111,6 +111,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJ2YWxcQWRtaW5fU2V0SW50ZXJ2YWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Core/C\#/WebCrawler/Views/Interval/Interval_History.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJ2YWxcSW50ZXJ2YWxfSGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Core/C\#/WebCrawler/Views/Interval/Run_Interval.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJ2YWxcUnVuX0ludGVydmFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

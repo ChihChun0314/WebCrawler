@@ -28,7 +28,7 @@ document_path += "\\"
 db = pymssql.connect( 
     host='127.0.0.1',
     user='sa',
-    password = 'pat900518',
+    password = '1234',
     database = 'Crawler'
 )
 

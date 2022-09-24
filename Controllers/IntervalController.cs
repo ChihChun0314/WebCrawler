@@ -23,64 +23,83 @@ namespace WebCrawler.Controllers
         }
         public async Task<IActionResult> Set_Interval(string WebName,string Url,int time)
         {
-            Interval interval = new Interval();
-            DateTime date_1 = new DateTime(2022, 07, 28, 22,20,00);
-            DateTime date_3 = DateTime.Now;
-            switch (time)
+            var check = DB.Intervals.ToList();
+            bool answer = false;
+            foreach (var s in check)
             {
-                case 1:
-                    date_3 = date_3.AddDays(1);
+                if(s.WebName == WebName)
+                {
+                    answer = true;
                     break;
-                case 2:
-                    date_3 = date_3.AddDays(7);
-                    break;
-                case 3:
-                    date_3 = date_3.AddMonths(1);
-                    break;
-                case 4:
-                    date_3 = date_3.AddYears(1);
-                    break;
+                }
             }
+            if (answer != true)
+            {
+                Interval interval = new Interval();
+                DateTime date_1 = new DateTime(2022, 07, 28, 22, 20, 00);
+                DateTime date_3 = DateTime.Now;
+                switch (time)
+                {
+                    case 1:
+                        date_3 = date_3.AddDays(1);
+                        break;
+                    case 2:
+                        date_3 = date_3.AddDays(7);
+                        break;
+                    case 3:
+                        date_3 = date_3.AddMonths(1);
+                        break;
+                    case 4:
+                        date_3 = date_3.AddYears(1);
+                        break;
+                }
 
+
+
+                interval.UId = HttpContext.Session.GetInt32("UserId");
+                interval.WebName = WebName;
+                interval.Url = Url;
+                interval.Next = date_3;
+                interval.Day = time;
+                DB.Add(interval);
+                await DB.SaveChangesAsync();
+
+                //Content(((date_1 - date_2).TotalMinutes).ToString())
+                @ViewBag.interval = "設定成功";
+
+                var psi = new ProcessStartInfo();
+                var urlName = interval.WebName;
+                psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
+
+                // 2) Provide script and arguments
+                var script = @"Detect.py";
+                var id = interval.UId;
+                var typeID = 1; // typeId 1 = names
+                                //var end = "10";
+
+                psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\" \"{typeID}\"";
+
+                // 3) Process configuration
+                psi.UseShellExecute = false;
+                psi.CreateNoWindow = true;
+                psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
+
+
+
+                var process = Process.Start(psi);
+                process.WaitForExit();
+                TempData["urlName"] = urlName;
+                TempData["Url"] = Url;
+
+                return RedirectToAction("User_Interval", "interval", interval);
+            }
+            else
+            {
+                ViewBag.check = "網頁標題重複";
+                return View("SetInterval");
+            }
             
-
-            interval.UId = HttpContext.Session.GetInt32("UserId");
-            interval.WebName = WebName;
-            interval.Url = Url;
-            interval.Next = date_3;
-            interval.Day = time;
-            DB.Add(interval);
-            await DB.SaveChangesAsync();
-
-            //Content(((date_1 - date_2).TotalMinutes).ToString())
-            @ViewBag.interval = "設定成功";
-
-            var psi = new ProcessStartInfo();
-            var urlName = interval.WebName;
-            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
-
-            // 2) Provide script and arguments
-            var script = @"Detect.py";
-            var id = interval.UId;
-            var typeID = 1; // typeId 1 = names
-            //var end = "10";
-
-            psi.Arguments = $"\"{script}\" \"{Url}\" \"{urlName}\" \"{id}\" \"{typeID}\"";
-
-            // 3) Process configuration
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
-            psi.RedirectStandardOutput = true;
-            psi.RedirectStandardError = true;
-
-
-
-            var process = Process.Start(psi);
-            process.WaitForExit();
-            TempData["urlName"] = urlName;
-            TempData["Url"] = Url;
-
-            return RedirectToAction("User_Interval", "interval",interval);
 
         }
 
@@ -172,7 +191,7 @@ namespace WebCrawler.Controllers
             var psi = new ProcessStartInfo();
             var Url = interval.Url;
             var urlName = interval.WebName;
-            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -359,6 +378,11 @@ namespace WebCrawler.Controllers
                 ViewBag.EditError = "修改失敗";
                 return RedirectToAction("Admin_Search_User_interval", "Interval", new { id = UId });
             }
+        }
+        public async Task<IActionResult> Interval_History(string id)
+        {
+            var crawler = await DB.Crawlers.Where(x=>x.WebName==id).ToListAsync();
+            return View(crawler);
         }
     }
 }
