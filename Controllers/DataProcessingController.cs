@@ -315,7 +315,7 @@ namespace WebCrawler.Controllers
         public IActionResult export(int id)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\Williamko\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
 
             // 2) Provide script and arguments
             var script = @"export.py";
@@ -335,6 +335,41 @@ namespace WebCrawler.Controllers
             var process = Process.Start(psi);
             process.WaitForExit();
             return Content("Done");
+
+        }
+
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult uploadFile(string urlName)
+        {
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+
+            // 2) Provide script and arguments
+            var script = @"FileUpload.py";
+            var id = (int)HttpContext.Session.GetInt32("UserId");
+            //var typeID = 1; // typeId 1 = names
+            //var end = "10";
+
+            psi.Arguments = $"\"{script}\" \"{urlName}\" \"{id}\"";
+
+            // 3) Process configuration
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
+
+
+            var process = Process.Start(psi);
+            process.WaitForExit();
+            TempData["urlName"] = urlName;
+            TempData["Url"] = Url;
+            return View("Temp");
 
         }
     }

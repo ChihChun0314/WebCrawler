@@ -11,18 +11,28 @@ import jieba.posseg as pseg
 import string
 from string import whitespace
 nonalpha = string.digits + string.punctuation + string.whitespace
+import tkinter as tk
+from tkinter import filedialog
+from tkinter.filedialog import askopenfilename
+import os
+import docx2txt
+import pdfplumber
+import openpyxl
 
-url = sys.argv[1]
-webName = sys.argv[2]
-U_ID = int(sys.argv[3])
+root = tk.Tk()
+root.attributes("-topmost", True)
+root.withdraw()
+
+webName = sys.argv[1]
+U_ID = int(sys.argv[2])
 #typeID = int(sys.argv[4])
 #url = 'http://tw.class.uschoolnet.com/class/?csid=css000000015149&id=memstu&cl=1155125037-7732-6037'
 
-res = requests.get(url)
-html_page = res.content
-soup = BeautifulSoup(html_page, 'html.parser')
-text = soup.find_all(text=True)
-    
+exportFile = filedialog.askopenfilename(title="Open file", filetypes=[("All type","*.html *.htm *.xlsx *.xlsm *.docx *.pdf *.txt")])
+a = str(exportFile)
+filename, file_extension = os.path.splitext(str(a))
+url = file_extension
+
 # connection info
 db = pymssql.connect( 
     host='127.0.0.1',
@@ -31,26 +41,64 @@ db = pymssql.connect(
     database = 'Crawler'
 )
 
-output = ''
-blacklist = [
-    '[document]',
-    'noscript',
-    'header',
-    'html',
-    'meta',
-    'head', 
-    'input',
-    'script',
-    'style'
+# html or htm
+if (str(file_extension) == '.html' or str(file_extension) == '.htm'):
+    soup = BeautifulSoup(open(a, encoding="utf8"), "html.parser")
+    tmp = soup.find_all(text=True)
 
-]
-count = 0
-for t in text:
-    if t.parent.name not in blacklist:
-        text = t.text.strip()
-        t.string = re.sub(r"[\n][\W]+[^\w]", "\n", text)
-        output += '{} '.format(text)
-        count += 1
+    text = ''
+    blacklist = [
+        '[document]',
+        'noscript',
+        'header',
+        'html',
+        'meta',
+        'head', 
+        'input',
+        'script',
+        'style'
+
+    ]
+    count = 0
+    for t in tmp:
+        if t.parent.name not in blacklist:
+            tmp = t.text.strip()
+            t.string = re.sub(r"[\n][\W]+[^\w]", "\n", tmp)
+            text += '{} '.format(tmp)
+            count += 1
+# text file       
+elif (str(file_extension) == '.txt'):
+    # print('tes')
+    text = ""
+    with open(a, encoding="utf-8") as inp:
+        for line in inp:
+            line = ' '.join(line.split())
+            text += line
+# word file
+elif (str(file_extension) == '.docx'):
+    # print("word")
+    text = docx2txt.process(a)
+    text = ' '.join(text.split())
+# pdf file
+elif (str(file_extension) == '.pdf'):
+    text = ""
+    with pdfplumber.open(a) as pdf:
+    #Total number of pages
+        totalpages = len(pdf.pages)
+        for i in range(0 ,totalpages):
+            pageobj = pdf.pages[i]
+            tmp =  pageobj.extract_text()
+            text += ' '.join(tmp.split())
+# excel
+elif (str(file_extension) == '.xlsx' or str(file_extension) == '.xlsm'):
+    dataframe = openpyxl.load_workbook(a)
+    dataframe1 = dataframe.active
+    
+    text = ""
+    for row in range(0, dataframe1.max_row):
+        for col in dataframe1.iter_cols(1, dataframe1.max_column):
+            if (col[row].value != None):
+                text += str(col[row].value) + " "
 
 #decides the flag
 def getFirstName(messageContent):
@@ -76,7 +124,7 @@ def alterWordTagToX(list):
         jieba.add_word(x, tag='n')
 
 def LoadStopWord():
-    StopWordList = ["暱稱", "國小", "國中", "幼兒", "詳細資料", "博士班",  "博士班", "迪士尼", "冰淇淋", "國立", "科技", "大學", "雲林", "寶貴", "關於", "路", "仁愛", "德信", "智慧", "花露水"]
+    StopWordList = ["暱稱", "國小", "國中", "幼兒", "詳細資料", "博士班",  "博士班", "迪士尼", "冰淇淋", "國立", "科技", "大學", "雲林", "寶貴", "關於", "路", "仁愛", "德信" "智慧", "花露水"]
 
     set(StopWordList)
     alterWordTagToX(StopWordList)
@@ -97,7 +145,7 @@ def extract_address(txt):
 # creates crawler info
 cursor = db.cursor()
 sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
-cursor.execute(sql, (U_ID, output, datetime.datetime.now(), url, webName))
+cursor.execute(sql, (U_ID, text, datetime.datetime.now(), url, webName))
 db.commit()
 
 # fetches cid from new crawler info in DB
@@ -112,7 +160,7 @@ for typeID in range(1, 5):
     
         LoadStopWord()
         final = []
-        names = getAllName(output)
+        names = getAllName(text)
 
         # check if the object is already in list and length is equal to 3
         for n in names:
@@ -133,7 +181,7 @@ for typeID in range(1, 5):
         cnt = 0
 
         Empty_list = []
-        regex_ex = re.finditer(phonePattern, output, re.MULTILINE)
+        regex_ex = re.finditer(phonePattern, text, re.MULTILINE)
         for x in regex_ex:
             Empty_list.append(x.group(0))
 
@@ -157,7 +205,7 @@ for typeID in range(1, 5):
         cnt = 0
 
         Empty_list = []
-        regex_ex = re.finditer(emailPattern, output, re.MULTILINE)
+        regex_ex = re.finditer(emailPattern, text, re.MULTILINE)
         for x in regex_ex:
             Empty_list.append(x.group(0))
 
@@ -181,7 +229,7 @@ for typeID in range(1, 5):
         cnt = 0
 
         #removes whitespaces and newlines
-        out = func(output)
+        out = func(text)
         out.translate(dict.fromkeys(map(ord, whitespace))) 
         out.replace("\\n","")
         out.replace("\\\n","")
