@@ -6,15 +6,30 @@
 @if (TempData["success"] != null)
 {
     <h3>@TempData["success"]</h3>
+    
 }
-
 <body>
     <div class="container text-center" style="margin-top: 0px;">
         <div class="row">
             <div class="col-12" id="a">
                 <div id="accordion">
                     <div class="card">
-                        <div class="card-header text-s">
+                        <div class=row>
+
+                            <div class="card-header">
+                              <h5>系統狀態設定</h5>
+                            </div>
+
+                        </div>
+                        <div class="card-body text-s">
+                            
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" readonly>
+                                
+                                說明：系統狀態設定為整體系統維修而設置之功能，
+                                主要分為一般狀態及維修狀態，當設定為維修狀態，
+                                前台使用者則無法使用本系統，直到後台管理者將系統改為一般狀態。
+                            </textarea><br></br>
+                            
                             @if ((string)TempData["state"] == "一般狀態")
                             {
                             <form asp-action="StatusSetting_Manager">
@@ -23,7 +38,7 @@
                                 <input type="hidden" name="MPassword" asp-for="MPassword">
                                 <input type="hidden" name="MName" asp-for="MName">
                                 <input type="hidden" name="State" value="1">
-                                <label>一般狀態</label><br><br>
+                                <h3>目前狀態為：一般狀態</h3><br><br>
                                 <input type="submit" value="修改為維修狀態" class="btn btn-danger barbtn">
                                 <br />
                             </form>
@@ -34,11 +49,12 @@
                                 <input type="hidden" name="MPassword" asp-for="MPassword">
                                 <input type="hidden" name="MName" asp-for="MName">
                                 <input type="hidden" name="State" value="0">
-                                <label>維修狀態</label><br><br>
+                                <h3>目前狀態為：維修狀態</h3><br><br>
                                 <input type="submit" value="修改為一般狀態" class="btn btn-success barbtn">
                                 <br />
                             </form>
                             }
+
                         </div>
                     </div>
                 </div>
