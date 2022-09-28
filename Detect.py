@@ -76,7 +76,7 @@ def alterWordTagToX(list):
         jieba.add_word(x, tag='n')
 
 def LoadStopWord():
-    StopWordList = ["暱稱", "國小", "國中", "幼兒", "詳細資料", "博士班",  "博士班", "迪士尼", "冰淇淋", "國立", "科技", "大學", "雲林", "寶貴", "關於", "路", "仁愛", "德信", "智慧", "花露水"]
+    StopWordList = ["暱稱", "國小", "國中", "幼兒", "詳細資料", "博士班",  "博士班", "迪士尼", "冰淇淋", "國立", "科技", "大學", "雲林", "寶貴", "關於", "路", "仁愛", "德信", "智慧", "智慧型", "花露水"]
 
     set(StopWordList)
     alterWordTagToX(StopWordList)
