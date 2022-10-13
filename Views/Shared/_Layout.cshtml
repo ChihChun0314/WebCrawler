@@ -44,7 +44,7 @@
     <!-- -----------------------boo--------------------- -->
     @if (Context.Session.GetInt32("UserId") != null || Context.Session.GetString("admin") == "admin")
     { }else{
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
 
             <div class="container-fluid">
                 @if ((Context.Session.GetInt32("UserId") != null && Context.Session.GetInt32("State") == 0) || Context.Session.GetString("admin") == "admin")
@@ -104,7 +104,7 @@
         <!-- Sidebar -->
         @if(Context.Session.GetInt32("UserId") != null && Context.Session.GetInt32("State")==0)
         {
-        <nav id="sidebar">
+        <nav id="sidebar" class="fixed-top">
             <ul class="list-unstyled components">
                 @*<li class="active">
                     <label>&emsp;歡迎~@Context.Session.GetString("UserName")使用者</label>
@@ -180,7 +180,7 @@
         }
         @if (Context.Session.GetString("admin") == "admin")
         {
-        <nav id="sidebar">
+        <nav id="sidebar" class="fixed-top">
             <ul class="list-unstyled components">
                 @*<li class="active">
                     <label>
@@ -218,7 +218,7 @@
         <div id="content" class="container text-center" >
             @if (Context.Session.GetInt32("UserId") != null || Context.Session.GetString("admin") == "admin")
             {
-                <main role="main" class="pb-3" style="margin-top: 10px;">
+                <main role="main" class="pb-3" style="margin-top: 10px;margin-left: 130px;margin-right: -150px;">
                     @RenderBody()
                 </main>
             }

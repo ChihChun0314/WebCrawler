@@ -8,15 +8,15 @@
 <div>
     
     <form asp-action="uploadFile">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <div class="form-floating">
-                    <input type="text" style="margin-top: 10px;" required="required" placeholder="自訂名稱" class="form-control" name="urlName">
-                    <label for="urlName">自訂名稱:</label>
-                </div>
-            </li>
-        </ul>
-        <input class="btn btn-primary" type="submit" style="margin-top: 10px;" value="確認" />
+        <div class="card-body text-s">
+
+            <div class="alert alert-primary" role="alert">
+                離線上傳檔案<br><br>
+                說明：上傳檔案類型總共分為HTML、Excel、Word、文字檔、PDF，<br>
+                檔案上傳結束後，選擇下載位置，為您存取檢測資料。<br>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" style="margin-top: 10px;" value="上傳檔案" />
     </form>
 </div>
 

@@ -18,13 +18,16 @@ import os
 import docx2txt
 import pdfplumber
 import openpyxl
+import pandas as pd
+import xlsxwriter
+from tkinter.filedialog import asksaveasfile
 
 root = tk.Tk()
 root.attributes("-topmost", True)
 root.withdraw()
 
-webName = sys.argv[1]
-U_ID = int(sys.argv[2])
+#webName = sys.argv[1]
+#U_ID = int(sys.argv[2])
 #typeID = int(sys.argv[4])
 #url = 'http://tw.class.uschoolnet.com/class/?csid=css000000015149&id=memstu&cl=1155125037-7732-6037'
 
@@ -33,13 +36,6 @@ a = str(exportFile)
 filename, file_extension = os.path.splitext(str(a))
 url = file_extension
 
-# connection info
-db = pymssql.connect( 
-    host='127.0.0.1',
-    user='sa',
-    password = 'pat900518',
-    database = 'Crawler'
-)
 
 # html or htm
 if (str(file_extension) == '.html' or str(file_extension) == '.htm'):
@@ -142,18 +138,12 @@ def extract_address(txt):
     pattern = r"([^\d\s][^\d\s][縣市])[\s]?(\d{1,3}|\d{1,5}|\d{1,3}[-]\d{1,3})?[\s]?(\D{2,9}?(市區|鎮區|鎮市|[鄉鎮市區]))?(\D{2,9}?[路街])[\s]?((\d+?|\D{1,2})[\s]?[段])?[\s]?((\d+?|\D{1,2})[\s]?[巷])?[\s]?(\d+?[弄])?[\s]?((\d+|\D{1,3})[\s]?[號])([\s]?(\d+?|\D{1,3}|\d+(、\d+){0,5})[\s]?[樓])?[\s]?([之][\s]?(\d+?|\D{1,3}))?"
     return re.finditer(pattern, txt, re.MULTILINE)
 
-# creates crawler info
-cursor = db.cursor()
-sql = "INSERT INTO Crawler (U_ID, Content, Time, URL, Web_name) VALUES (%s, %s, %s, %s, %s)"
-cursor.execute(sql, (U_ID, text, datetime.datetime.now(), url, webName))
-db.commit()
+nameList = []
+phoneList = []
+mailList = []
+addressList = []
 
-# fetches cid from new crawler info in DB
-cursor.execute("Select TOP(1) C_ID FROM Crawler WHERE U_ID ={} ORDER BY Time DESC".format(U_ID))
-row = cursor.fetchone()
-cid = int(row[0]) # Crawler ID
 
-# searches for names, phones, email addresses and physical addresses
 for typeID in range(1, 5):
     if (typeID == 1):
         cnt = 0
@@ -167,16 +157,9 @@ for typeID in range(1, 5):
             if(len(n) == 3 and not n in final):
                 final.append(n)
 
-        postOutput = ""
         for x in final:
-            postOutput += "{}, ".format(x)
-            cnt += 1
+            nameList.append(x)
         
-        # removes last 2 characters from postOutput string ", "
-        postOutput = postOutput[:-2] 
-        sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (cid, typeID, postOutput, cnt))
-        db.commit()
     elif(typeID == 2):
         cnt = 0
 
@@ -191,16 +174,10 @@ for typeID in range(1, 5):
             if(x not in y):
                 y.append(x)
 
-        postOutput = ""
         for x in y:
-            postOutput += "{}, ".format(x)
-            cnt += 1
+            phoneList.append(x)
 
-        # removes last 2 characters from postOutput string ", "
-        postOutput = postOutput[:-2]
-        sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (cid, typeID, postOutput, cnt))
-        db.commit()
+
     elif(typeID == 3):
         cnt = 0
 
@@ -215,16 +192,9 @@ for typeID in range(1, 5):
             if(x not in y):
                 y.append(x)
 
-        postOutput = ""
         for x in y:
-            postOutput += "{}, ".format(x)
-            cnt += 1
+            mailList.append(x);
 
-        # removes last 2 characters from postOutput string ", "
-        postOutput = postOutput[:-2]
-        sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (cid, typeID, postOutput, cnt))
-        db.commit()
     elif(typeID == 4):
         cnt = 0
 
@@ -237,12 +207,6 @@ for typeID in range(1, 5):
 
         res = extract_address(out)
 
-        '''
-        for x in res: # old regex
-            if(x not in y and len(x) > 8 and not reg.match(x) and ((any(char.isdigit() for char in x)) or any(i in x for i in chinese_digit)) and not re.search('[a-zA-Z]', x) and re.search('\w{2}[縣|市|區|鄉]', x)):
-                x = re.sub('^[0-9]+', "", x)
-                y.append(x)
-        '''
 
         Empty_list = []
         for x in res:
@@ -255,17 +219,37 @@ for typeID in range(1, 5):
                 y.append(x.replace(' ', ''))
 
 
-        postOutput = ""
         for x in y:
-            postOutput += "{}, ".format(x)
-            cnt += 1
-
-        # removes last 2 characters from postOutput string ", "
-        postOutput = postOutput[:-2]
-        sql = "INSERT INTO Analysis (C_ID, T_ID, Content, Count) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (cid, typeID, postOutput, cnt))
-        db.commit()
+            addressList.append(x)
 
 
-# print(output)
-# print(count)
+exportFile = filedialog.asksaveasfile(mode='a', title="Save the file", filetypes=[("Excel Workbook", ".xlsx")], initialfile = u"掃描結果", defaultextension=".xlsx")
+b = str(exportFile.name)
+
+workbook = xlsxwriter.Workbook(b)
+worksheet = workbook.add_worksheet()
+
+List = [nameList, phoneList, mailList, addressList]     
+
+row_num = 0
+
+worksheet.set_column('B:B', 15)
+worksheet.set_column('C:C', 30)
+worksheet.set_column('D:D', 35)
+
+style = workbook.add_format({'bold': True})
+style.set_font_color('#17202A')
+style.set_bg_color('#E5E7E9')
+
+description = workbook.add_format({'bold': True})
+
+
+worksheet.write('A1', '人名', style)
+worksheet.write('B1', '電話', style)
+worksheet.write('C1', '電子信箱', style)
+worksheet.write('D1', '地址', style)
+
+for col_num, data in enumerate(List):
+    worksheet.write_column(row_num+1, col_num, data)
+
+workbook.close()

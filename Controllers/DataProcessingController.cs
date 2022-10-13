@@ -58,7 +58,7 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -315,7 +315,7 @@ namespace WebCrawler.Controllers
         public IActionResult export(int id)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"export.py";
@@ -334,7 +334,8 @@ namespace WebCrawler.Controllers
 
             var process = Process.Start(psi);
             process.WaitForExit();
-            return Content("Done");
+            
+            return RedirectToAction("UserRecords_class", "DataProcessing", new { id = id });
 
         }
 
@@ -347,7 +348,7 @@ namespace WebCrawler.Controllers
         public IActionResult uploadFile(string urlName)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\李培聖\AppData\Local\Programs\Python\Python36\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"FileUpload.py";
@@ -355,7 +356,7 @@ namespace WebCrawler.Controllers
             //var typeID = 1; // typeId 1 = names
             //var end = "10";
 
-            psi.Arguments = $"\"{script}\" \"{urlName}\" \"{id}\"";
+            psi.Arguments = $"\"{script}\"";
 
             // 3) Process configuration
             psi.UseShellExecute = false;
@@ -365,11 +366,10 @@ namespace WebCrawler.Controllers
 
 
 
+            
             var process = Process.Start(psi);
             process.WaitForExit();
-            TempData["urlName"] = urlName;
-            TempData["Url"] = Url;
-            return View("Temp");
+            return RedirectToAction("User_Interval", "Interval");
 
         }
     }

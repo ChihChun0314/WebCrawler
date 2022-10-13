@@ -61,7 +61,7 @@ namespace WebCrawler.Properties {
         }
         
         /// <summary>
-        ///   查詢類似 Data Source=&quot;DESKTOP-7CKVNBE\MSSQL_2019&quot;; database=&quot;Crawler&quot;; integrated security = SSPI; 的當地語系化字串。
+        ///   查詢類似 Data Source=&quot;DESKTOP-2L32HND&quot;; database=&quot;Crawler&quot;; integrated security = SSPI; 的當地語系化字串。
         /// </summary>
         internal static string ConnectionString {
             get {
