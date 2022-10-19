@@ -5,7 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using WebCrawler.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Net;
+using System.Web;
 namespace WebCrawler.Controllers
 {
     public class DataProcessingController : Controller
@@ -370,6 +371,38 @@ namespace WebCrawler.Controllers
             var process = Process.Start(psi);
             process.WaitForExit();
             return RedirectToAction("User_Interval", "Interval");
+
+        }
+
+        public IActionResult current(int id)
+        {
+
+            //string link = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+            string baseUrl = string.Format("{0}://{1}/DataProcessing/UserRecords_class/{2}",
+                        HttpContext.Request.Scheme, HttpContext.Request.Host, id);
+
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Python310\python.exe";
+
+            // 2) Provide script and arguments
+            var script = @"pdfDownload.py";
+            //var typeID = 1; // typeId 1 = names
+            //var end = "10";
+
+            psi.Arguments = $"\"{script}\" \"{baseUrl}\"";
+
+            // 3) Process configuration
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
+
+
+            var process = Process.Start(psi);
+            process.WaitForExit();
+
+            return RedirectToAction("UserRecords_class", "DataProcessing", new { id = id });
 
         }
     }
