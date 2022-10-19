@@ -117,7 +117,11 @@ namespace WebCrawler.Controllers
             {
                 ViewBag.time = 0;
             }
-            else
+            else if(time > 600)
+            {
+                ViewBag.time = 600;
+            }
+            else 
             {
                 ViewBag.time = time;
             }
@@ -135,6 +139,13 @@ namespace WebCrawler.Controllers
             interval.IId = a.IId;
             interval.Next = a.Next;
             interval.Day = a.Day;
+            DateTime date_1 = (DateTime)interval.Next;
+            DateTime date_3 = DateTime.Now;
+            var time = Math.Round((date_1 - date_3).TotalSeconds);
+            if(time >= 0)
+            {
+                return RedirectToAction("Run_Interval", "interval");
+            }
             return RedirectToAction("detectInfo","interval",interval);
         }
 
