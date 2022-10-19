@@ -125,7 +125,6 @@ namespace WebCrawler.Controllers
             {
                 ViewBag.time = time;
             }
-            
             return View(interval);
         }
         public IActionResult Run_DataProcessing()
@@ -141,8 +140,8 @@ namespace WebCrawler.Controllers
             interval.Day = a.Day;
             DateTime date_1 = (DateTime)interval.Next;
             DateTime date_3 = DateTime.Now;
-            var time = Math.Round((date_1 - date_3).TotalSeconds);
-            if(time >= 0)
+            
+            if(date_1 >= date_3)
             {
                 return RedirectToAction("Run_Interval", "interval");
             }
