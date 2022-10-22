@@ -12,7 +12,7 @@
 <form method="post" asp-action="User_Edit">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Edit Userdata</h2>
+			<h2 class="text-primary">編輯會員資料</h2>
 			<hr />
 		</div>
 		@*<div asp-validation-summary="All"></div>*@
@@ -59,14 +59,14 @@
 				</div>
 			</li>
 		</ul>
-		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+		<button type="submit" class="btn btn-primary" style="width:150px">確認上傳</button>
 		@if(Context.Session.GetInt32("UserId") != null){
 			<a asp-controller="Member" asp-action="User_Self" class="btn btn-secondary" style="width:150px">
-				Back to User
+				返回
 			</a>
 		}else{
 			<a asp-controller="Member" asp-action="Search_User" class="btn btn-secondary" style="width:150px">
-				Back to search
+				返回
 			</a>
 		}
 

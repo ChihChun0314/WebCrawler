@@ -7,6 +7,8 @@ using WebCrawler.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Web;
+using WebCrawler.Models.Statisics_PostAnalysis;
+
 namespace WebCrawler.Controllers
 {
     public class DataProcessingController : Controller
@@ -59,7 +61,7 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Python310\python.exe";
+            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -239,6 +241,20 @@ namespace WebCrawler.Controllers
             return View(PAnalysis);
         }
 
+        public PostAnalysis PreContent_new(Analysis analysis,Crawler crawler)
+        {
+            PostAnalysis PostAnalysis = new PostAnalysis();
+            PostAnalysis.AId = analysis.AId;
+            PostAnalysis.CId = crawler.CId;
+            PostAnalysis.TId = analysis.TId;
+            PostAnalysis.PreContent = crawler.Content;
+            PostAnalysis.PostContent = analysis.Content;
+            PostAnalysis.Time = crawler.Time;
+            PostAnalysis.Url = crawler.Url;
+            PostAnalysis.WebName = crawler.WebName;
+            PostAnalysis.Count = analysis.Count;
+            return PostAnalysis;
+        }
         public async Task<IActionResult> PreContent(int id)
         {
             var analysis = await DB.Analyses.Where(x => x.AId == id).FirstOrDefaultAsync();
@@ -274,6 +290,7 @@ namespace WebCrawler.Controllers
         }
         public async Task<IActionResult> UserRecords_class(int id)
         {
+            SPA spa = new SPA();
             var name = await DB.Analyses.Where(x => x.CId == id && x.TId == 1).FirstOrDefaultAsync();
             var phone = await DB.Analyses.Where(x => x.CId == id && x.TId == 2).FirstOrDefaultAsync();
             var email = await DB.Analyses.Where(x => x.CId == id && x.TId == 3).FirstOrDefaultAsync();
@@ -296,6 +313,35 @@ namespace WebCrawler.Controllers
                 TempData["phone_id"] = (int)phone.AId;
                 TempData["email_id"] = (int)email.AId;
                 TempData["address_id"] = (int)address.AId;
+                
+                spa.statistics = Statistics_data;
+                int[] Count = { (int)name.Count, (int)phone.Count, (int)email.Count, (int)address.Count };
+                int[] id2 = { (int)name.AId, (int)phone.AId, (int)email.AId, (int)address.AId };
+                for (int i = 0; i < 4; i++)
+                {
+                    if(Count[i] != 0)
+                    {
+                        var analysis = await DB.Analyses.Where(x => x.AId == id2[i]).FirstOrDefaultAsync();
+                        var crawler = await DB.Crawlers.Where(x => x.CId == analysis.CId).FirstOrDefaultAsync();
+
+                        switch (i)
+                        {
+                            case 0:
+                                spa.postAnalysis1 = PreContent_new(analysis, crawler);
+                                break;
+                            case 1:
+                                spa.postAnalysis2 = PreContent_new(analysis, crawler);
+                                break;
+                            case 2:
+                                spa.postAnalysis3 = PreContent_new(analysis, crawler);
+                                break;
+                            case 3:
+                                spa.postAnalysis4 = PreContent_new(analysis, crawler);
+                                break;
+                        }
+                        
+                    }
+                }
             }
             else
             {
@@ -303,9 +349,15 @@ namespace WebCrawler.Controllers
                 Statistics_data.phone = id;
                 Statistics_data.email = id;
                 Statistics_data.address = id;
+                spa.statistics = Statistics_data;
             }
             TempData["user_id"] = id;
-            return View(Statistics_data);
+
+            //-------------------------------
+            
+            
+
+            return View(spa);
         }
 
         public IActionResult Excel()
@@ -316,7 +368,7 @@ namespace WebCrawler.Controllers
         public IActionResult export(int id)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Python310\python.exe";
+            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"export.py";
@@ -349,7 +401,7 @@ namespace WebCrawler.Controllers
         public IActionResult uploadFile(string urlName)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Python310\python.exe";
+            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"FileUpload.py";
@@ -382,7 +434,7 @@ namespace WebCrawler.Controllers
                         HttpContext.Request.Scheme, HttpContext.Request.Host, id);
 
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Python310\python.exe";
+            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"pdfDownload.py";

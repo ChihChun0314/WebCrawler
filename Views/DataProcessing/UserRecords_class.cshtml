@@ -1,4 +1,4 @@
-﻿@model WebCrawler.Models.Statistics
+﻿@model WebCrawler.Models.Statisics_PostAnalysis.SPA
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -9,10 +9,10 @@
   function drawStuff() {
     var data = new google.visualization.arrayToDataTable([
       ['偵測類別', '數量'],
-      ["姓名", @Html.DisplayFor(i=>i.name)],
-      ["Email", @Html.DisplayFor(i=>i.email)],
-      ["電話", @Html.DisplayFor(i=>i.phone)],
-      ["地址", @Html.DisplayFor(i=>i.address)]
+      ["姓名", @Html.DisplayFor(i=>i.statistics.name)],
+      ["Email", @Html.DisplayFor(i=>i.statistics.email)],
+      ["電話", @Html.DisplayFor(i=>i.statistics.phone)],
+      ["地址", @Html.DisplayFor(i=>i.statistics.address)]
     ]);
 
     var options = {
@@ -48,8 +48,8 @@
                         下載
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" asp-action="current" asp-route-id="@Model.CId">Pdf下載</a></li>
-                        <li><a class="dropdown-item" asp-action="export" asp-route-id="@Model.CId">Excel下載</a></li>
+                        <li><a class="dropdown-item" asp-action="current" asp-route-id="@Model.statistics.CId">Pdf下載</a></li>
+                        <li><a class="dropdown-item" asp-action="export" asp-route-id="@Model.statistics.CId">Excel下載</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,28 +81,28 @@
                 <tbody>
                     <tr>
                         <td>姓名</td>
-                        <td>@Html.DisplayFor(i=>i.name)</td>
+                        <td>@Html.DisplayFor(i=>i.statistics.name)</td>
                         
 			        </tr>
                 </tbody>
                 <tbody>
                     <tr>
                         <td>Email</td>
-                        <td>@Html.DisplayFor(i=>i.email)</td>
+                        <td>@Html.DisplayFor(i=>i.statistics.email)</td>
                         
 			        </tr>
                 </tbody>
                 <tbody>
                     <tr>
                         <td>電話</td>
-                        <td>@Html.DisplayFor(i=>i.phone)</td>
+                        <td>@Html.DisplayFor(i=>i.statistics.phone)</td>
 			        </tr>
                 </tbody>
                 <tbody>
                     <tr>
                         
                         <td>地址</td>
-                        <td>@Html.DisplayFor(i=>i.address)</td>
+                        <td>@Html.DisplayFor(i=>i.statistics.address)</td>
 			        </tr>
                 </tbody>
         </table>
@@ -121,21 +121,30 @@
                 @if (TempData["name_count"].ToString() != "0")
                 {
                     <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["name_id"]>姓名檢測</a>
-                    <br>
+                     <div class="modal-body">
+                        @Html.DisplayFor(i=>i.postAnalysis1.PostContent)
+                     </div>
                 }
                 @if (TempData["email_count"].ToString() != "0")
                 {
                     <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["email_id"]>Email檢測</a>
-                    <br>
+                    <div class="modal-body">
+                        @Html.DisplayFor(i=>i.postAnalysis3.PostContent)
+                    </div>
                 }
                 @if (TempData["phone_count"].ToString() != "0")
                 {
                     <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["phone_id"]>電話檢測</a>
-                    <br>
+                    <div class="modal-body">
+                        @Html.DisplayFor(i=>i.postAnalysis2.PostContent)
+                    </div>
                 }   
                 @if (TempData["address_count"].ToString() != "0")
                 {
                     <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["address_id"]>地址檢測</a>
+                    <div class="modal-body">
+                        @Html.DisplayFor(i=>i.postAnalysis4.PostContent)
+                     </div>
                 }
             }
             
