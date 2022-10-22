@@ -250,6 +250,30 @@ namespace WebCrawler.Controllers
         }
         public async Task<IActionResult> User_Interval()
         {
+            TempData["check_count"] = "";
+            var user = DB.Users.Where(x => x.UId == HttpContext.Session.GetInt32("UserId")).First();
+            if (user.Permission == "B")
+            {
+                var count = 0;
+                var check_count = DB.Intervals.Where(x => x.UId == HttpContext.Session.GetInt32("UserId"));
+                //var webname_check="";
+                foreach (var c in check_count)
+                {
+                    //if (webname_check == "")
+                    //{
+                    //    webname_check=c.WebName;
+                    //}
+                    //else if(webname_check != c.WebName)
+                    //{
+                    count++;
+                    //}
+                }
+                if (count >= 3)
+                {
+                    TempData["check_count"] = "Can not use";
+                }
+            }
+
             var User = HttpContext.Session.GetInt32("UserId");
             var User_Interval = await DB.Intervals.Where(x => x.UId == User).ToListAsync();
             return View(User_Interval);

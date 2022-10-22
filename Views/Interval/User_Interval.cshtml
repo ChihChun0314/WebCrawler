@@ -4,10 +4,37 @@
     <div class="card-header">
         <div class=row>
 
-            <div class="col-1 justify-content-end">
-              <a class="btn btn-primary" asp-action="SetInterval">新增專案</a>
-              
-            </div>
+            @if(TempData["check_count"].ToString() == "Can not use")
+            {
+                <div class="col-1 justify-content-end">
+                    
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        新增專案
+                    </button>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">提醒通知!!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        權限不足，專案已超過三個，無法新增
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-1 justify-content-end">
+                    <a class="btn btn-primary" asp-action="SetInterval">新增專案</a>
+                </div>
+            }
 
             <div class="col-1 justify-content-end">
               <a class="btn btn-primary" asp-controller="DataProcessing"  asp-action="Upload">離線檔案檢測</a>
