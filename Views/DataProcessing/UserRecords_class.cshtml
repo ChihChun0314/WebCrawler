@@ -115,39 +115,75 @@
         <h5>檢測資料</h5>
     </div>
     <div class="card-body">
-        <ul class="list-group list-group-flush">
-            @if(TempData["name_count"]!=null || TempData["email_count"]!=null || TempData["phone_count"]!=null || TempData["address_count"] != null)
+        @if(TempData["name_count"]!=null || TempData["email_count"]!=null || TempData["phone_count"]!=null || TempData["address_count"] != null)
+        {
+            <div class="row">
+            @if (TempData["name_count"].ToString() != "0")
             {
-                @if (TempData["name_count"].ToString() != "0")
-                {
-                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["name_id"]>姓名檢測</a>
-                     <div class="modal-body">
-                        @Html.DisplayFor(i=>i.postAnalysis1.PostContent)
-                     </div>
-                }
-                @if (TempData["email_count"].ToString() != "0")
-                {
-                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["email_id"]>Email檢測</a>
-                    <div class="modal-body">
-                        @Html.DisplayFor(i=>i.postAnalysis3.PostContent)
+                <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">姓名檢測</h5>
+                        <a asp-action="PreContent" asp-route-id=@TempData["name_id"] class="btn btn-primary">詳細資料</a>
+                        <p class="card-text">@Html.DisplayFor(i=>i.postAnalysis1.PostContent)</p>
+                      </div>
                     </div>
-                }
-                @if (TempData["phone_count"].ToString() != "0")
-                {
-                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["phone_id"]>電話檢測</a>
-                    <div class="modal-body">
-                        @Html.DisplayFor(i=>i.postAnalysis2.PostContent)
-                    </div>
-                }   
-                @if (TempData["address_count"].ToString() != "0")
-                {
-                    <a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["address_id"]>地址檢測</a>
-                    <div class="modal-body">
-                        @Html.DisplayFor(i=>i.postAnalysis4.PostContent)
-                     </div>
-                }
+                </div>
+                @*<a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["name_id"]>姓名檢測</a>
+                 <div class="modal-body">
+                    @Html.DisplayFor(i=>i.postAnalysis1.PostContent)
+                 </div>*@
             }
+            @if (TempData["email_count"].ToString() != "0")
+            {
+                <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Email檢測</h5>
+                        <a asp-action="PreContent" asp-route-id=@TempData["email_id"] class="btn btn-primary">詳細資料</a>
+                        <p class="card-text">@Html.DisplayFor(i=>i.postAnalysis3.PostContent)</p>
+                      </div>
+                    </div>
+                </div>
+                @*<a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["email_id"]>Email檢測</a>
+                <div class="modal-body">
+                    @Html.DisplayFor(i=>i.postAnalysis3.PostContent)
+                </div>*@
+            }
+            @if (TempData["phone_count"].ToString() != "0")
+            {
+                <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">電話檢測</h5>
+                        <a asp-action="PreContent" asp-route-id=@TempData["phone_id"] class="btn btn-primary">詳細資料</a>
+                        <p class="card-text">@Html.DisplayFor(i=>i.postAnalysis2.PostContent)</p>
+                      </div>
+                    </div>
+                </div>
+                @*<a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["phone_id"]>電話檢測</a>
+                <div class="modal-body">
+                    @Html.DisplayFor(i=>i.postAnalysis2.PostContent)
+                </div>*@
+            }   
+            @if (TempData["address_count"].ToString() != "0")
+            {
+                <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">地址檢測</h5>
+                        <a asp-action="PreContent" asp-route-id=@TempData["address_id"] class="btn btn-primary">詳細資料</a>
+                        <p class="card-text">@Html.DisplayFor(i=>i.postAnalysis4.PostContent)</p>
+                      </div>
+                    </div>
+                </div>
+                @*<a class="btn btn-outline-secondary" asp-action="PreContent" asp-route-id=@TempData["address_id"]>地址檢測</a>
+                <div class="modal-body">
+                    @Html.DisplayFor(i=>i.postAnalysis4.PostContent)
+                 </div>*@
+            }
+            </div>
+        }
             
-        </ul>
     </div>
 </div>
