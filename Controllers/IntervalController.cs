@@ -69,7 +69,7 @@ namespace WebCrawler.Controllers
 
                 var psi = new ProcessStartInfo();
                 var urlName = interval.WebName;
-                psi.FileName = @"C:\Python310\python.exe";
+                psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
                 // 2) Provide script and arguments
                 var script = @"Detect.py";
@@ -171,7 +171,7 @@ namespace WebCrawler.Controllers
                 var psi = new ProcessStartInfo();
                 var Url = a.Url;
                 var urlName = a.WebName;
-                psi.FileName = @"C:\Python310\python.exe";
+                psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
                 // 2) Provide script and arguments
                 var script = @"Detect.py";
@@ -201,7 +201,7 @@ namespace WebCrawler.Controllers
             var psi = new ProcessStartInfo();
             var Url = interval.Url;
             var urlName = interval.WebName;
-            psi.FileName = @"C:\Python310\python.exe";
+            psi.FileName = @"C:\Users\jason\AppData\Local\Programs\Python\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";

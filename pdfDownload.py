@@ -22,7 +22,7 @@ chrome_options = Options()
 #chrome_options.add_argument("--disable-gpu")
 #chrome_options.add_argument("--no-sandbox") # linux only
 chrome_options.add_argument("--headless")
-driver = webdriver.Chrome("C:\\Program Files\\Selenium\\chromedriver.exe", options=chrome_options)
+driver = webdriver.Chrome(r"chromedriver.exe", options=chrome_options)
 # url = "https://localhost:7257/DataProcessing/UserRecords_class/64"
 url = str(sys.argv[1])
 driver.get(url)
@@ -41,7 +41,7 @@ im1 = image1.crop((400, 170, 1500, 835)) # left, top, right, bottom
 exportFile = filedialog.asksaveasfile(mode='a', title="Save the file", filetypes=[("PDF", ".pdf")], initialfile = u"掃描結果", defaultextension=".pdf")
 b = str(exportFile.name)
 
-pdf_path = r'C:\Users\mis\Desktop\2022-10-19\Temp\temp.png'
+pdf_path = r'Temp\temp.png'
 
 im1.save(pdf_path)
 # final.save(r'C:\Users\mis\Desktop\WebTest\Output\blah.pdf')
