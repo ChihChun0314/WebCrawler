@@ -61,7 +61,7 @@ namespace WebCrawler.Controllers
         public IActionResult detectInfo(string urlName, string Url)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"Detect.py";
@@ -368,7 +368,7 @@ namespace WebCrawler.Controllers
         public IActionResult export(int id)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"export.py";
@@ -401,7 +401,7 @@ namespace WebCrawler.Controllers
         public IActionResult uploadFile(string urlName)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"FileUpload.py";
@@ -434,7 +434,7 @@ namespace WebCrawler.Controllers
                         HttpContext.Request.Scheme, HttpContext.Request.Host, id);
 
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe";
+            psi.FileName = @"C:\Python310\python.exe";
 
             // 2) Provide script and arguments
             var script = @"pdfDownload.py";
